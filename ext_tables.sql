@@ -70,8 +70,10 @@ CREATE TABLE tx_taxonomy_domain_model_concept (
 CREATE TABLE tx_taxonomy_domain_model_lexicallabel (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
+
+	concept int(11) unsigned DEFAULT '0' NOT NULL,
 	
+	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 	tx_taxonomy_value varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
