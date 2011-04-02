@@ -26,7 +26,12 @@ if (TYPO3_MODE === 'BE') {
 		'admin',	// Submodule key
 		'',						// Position
 		array(
-			'ConceptScheme' => 'list, show, new, create, edit, update, delete','Concept' => 'list, show, new, create, edit, update, delete','LexicalLabel' => 'list, show, new, create, edit, update, delete','Collection' => 'list, show, new, create, edit, update, delete','LabelRelationType' => 'list, show, new, create, edit, update, delete','SemanticRelationType' => 'list, show, new, create, edit, update, delete',
+			'ConceptScheme' => 'list, show, new, create, edit, update, delete',
+			'Concept' => 'list, show, new, create, edit, update, delete',
+			'LexicalLabel' => 'list, show, new, create, edit, update, delete',
+			'Collection' => 'list, show, new, create, edit, update, delete',
+			'LabelRelationType' => 'list, show, new, create, edit, update, delete',
+			'SemanticRelationType' => 'list, show, new, create, edit, update, delete',
 		),
 		array(
 			'access' => 'user,group',
