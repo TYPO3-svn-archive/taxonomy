@@ -22,12 +22,12 @@ if (TYPO3_MODE === 'BE') {
 	*/
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
-		'web',	 // Make module a submodule of 'web'
+		'user',	 // Make module a submodule of 'web'
 		'admin',	// Submodule key
 		'',						// Position
 		array(
-			'ConceptScheme' => 'list, show, new, create, edit, update, delete',
 			'Concept' => 'list, show, new, create, edit, update, delete',
+			'ConceptScheme' => 'list, show, new, create, edit, update, delete',
 			'LexicalLabel' => 'list, show, new, create, edit, update, delete',
 			'Collection' => 'list, show, new, create, edit, update, delete',
 			'LabelRelationType' => 'list, show, new, create, edit, update, delete',

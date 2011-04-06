@@ -13,23 +13,7 @@ in /Configuration/Kickstarter/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the kickstarter
 
 <f:section name="content">
-<h1>Listing for Concept</h1>
+	<f:flashMessages />
 
-<f:flashMessages />
-
-<table  class="tx_taxonomy" >
-	<tr>
-		<th> </th>
-		<th> </th>
-	</tr>
-
-	<f:for each="{concepts}" as="concept">
-		<tr>
-			<td><f:link.action action="edit" arguments="{concept : concept}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{concept : concept}">Delete</f:link.action></td>
-		</tr>
-	</f:for>
-</table>
-
-<f:link.action action="new">New Concept</f:link.action>
+	<div id="typo3-viewPort" />
 </f:section>
