@@ -1,3 +1,4 @@
+{namespace taxonomy=Tx_Taxonomy_ViewHelpers}
 <f:be.container>
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
@@ -11,25 +12,18 @@
 			</div>
 			<div id="typo3-docheader-row2">
 				<div class="docheader-row2-left">
-					<f:be.buttons.csh />
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="Overview" controller="" action="list" />
-						<f:be.menus.actionMenuItem label="Create new ConceptScheme" action="new" controller="ConceptScheme" />
-								<f:be.menus.actionMenuItem label="Create new Concept" action="new" controller="Concept" />
-								<f:be.menus.actionMenuItem label="Create new LexicalLabel" action="new" controller="LexicalLabel" />
-								<f:be.menus.actionMenuItem label="Create new Collection" action="new" controller="Collection" />
-								<f:be.menus.actionMenuItem label="Create new LabelRelationType" action="new" controller="LabelRelationType" />
-								<f:be.menus.actionMenuItem label="Create new SemanticRelationType" action="new" controller="SemanticRelationType" />
-					</f:be.menus.actionMenu>
 				</div>
 				<div class="docheader-row2-right">
-					<f:be.pagePath />
-					<f:be.pageInfo />
+					<select>
+						<option>Select a table</option>
+					</select>
+					<taxonomy:openNewWindow />
 				</div>
 			</div>
 
 		</div>
 		<div id="typo3-docbody">
+
 			<div id="typo3-inner-docbody">
 				<f:renderFlashMessages renderMode="div" />
 				<f:render section="content" />

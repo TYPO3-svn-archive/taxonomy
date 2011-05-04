@@ -13,82 +13,156 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 
 	initComponent: function() {
 
-		// Go ahead and create the TreePanel now so that we can use it below
-		// proof of concept
-		var treePanel = new Ext.tree.TreePanel({
-			id: 'tree-panel',
-			split: true,
-			height: 500,
-			minSize: 150,
-			autoScroll: true,
 
-			// tree-specific configs:
-			rootVisible: false,
-			lines: false,
-			singleExpand: true,
-			useArrows: true,
 
-			loader: new Ext.tree.TreeLoader({
-				dataUrl:'/typo3conf/ext/taxonomy/tree-data.json'
-			}),
 
-			root: new Ext.tree.AsyncTreeNode()
+
+
+		// Data grid
+		var store = new Ext.data.Store({
+			data: [
+			[
+			1,
+			"Office Space",
+			"Mike Judge",
+			"1999-02-19",
+			1,
+			"Work Sucks",
+			"19.95",
+			1
+			],[
+			3,
+			"Super Troopers",
+			"Jay Chandrasekhar",
+			"2002-02-15",
+			1,
+			"Altered State Police",
+			"14.95",
+			1
+			]
+			//...more rows of data removed for readability...//
+			],
+			reader: new Ext.data.ArrayReader({
+				id:'id'
+			}, [
+			'id',
+			'title',
+			'director',
+			{
+				name: 'released',
+				type: 'date',
+				dateFormat: 'Y-m-d'
+			},
+			'genre',
+			'tagline',
+			'price',
+			'available'
+			])
 		});
 
-		console.log(treePanel.getSelectionModel());
 
-		// contect menu
-//		treePanel.on('contextmenu', function treeContextHandler(node) {
-//			node.select();
-//			// Context menu & setup
-//			var contextMenu = new Ext.menu.Menu({
-//				items: [
+
+		var grid = new Ext.grid.GridPanel({
+//			frame:true,
+			//		 title: 'Movie Database',
+			height:200,
+			//		  width:500,
+			store: store,
+			columns: [
+			{
+				header: "Title",
+				dataIndex: 'title'
+			},
+
+			{
+				header: "Director",
+				dataIndex: 'director'
+			},
+
+			{
+				header: "Released",
+				dataIndex: 'released',
+				renderer: Ext.util.Format.dateRenderer('m/d/Y')
+				},
+
+				{
+				header: "Genre",
+				dataIndex: 'genre'
+			},
+
+			{
+				header: "Tagline",
+				dataIndex: 'tagline'
+			}
+			],
+
+			// Top Bar
+//			tbar: [
 //				{
-//					text: 'Delete',
-//					handler: 	function deleteHandler() {
-//						treePanel.getSelectionModel().getSelectedNode().remove();
-//					}
-//
-//				}, {
-//					text: 'Sort',
-//					handler: 	function sortHandler() {
-//						treePanel.getSelectionModel().getSelectedNode().sort(
-//							function (leftNode, rightNode) {
-//								return (leftNode.text.toUpperCase() < rightNode.text.toUpperCase() ? 1 : -1);
-//							}
-//							);
-//					}
-//
-//				}, {
-//					text: 'Filter',
-//					handler: 	function filterHandler() {
-//						var node = treePanel.getSelectionModel().getSelectedNode();
-//						treePanel.filter('Bee', 'text', node);
-//					}
-//
+//					xtype: 'button',
+//					text: 'button'
 //				}
-//				]
-//			});
-//			contextMenu.show(node.ui.getAnchor());
-//		});
+//			],
 
-		// Assign the changeLayout function to be called on tree node click.
-		treePanel.getSelectionModel().on('select', function(selModel, record) {
-			console.log(record);
-			console.log(123);
-		//			if (record.get('leaf')) {
-		//				Ext.getCmp('content-panel').layout.setActiveItem(record.getId() + '-panel');
-		//				if (!detailEl) {
-		//					var bd = Ext.getCmp('details-panel').body;
-		//					bd.update('').setStyle('background','#fff');
-		//					detailEl = bd.createChild(); //create default empty div
-		//				}
-		//				detailEl.hide().update(Ext.getDom(record.getId() + '-details').innerHTML).slideIn('l', {
-		//					stopFx:true,
-		//					duration: 200
-		//				});
-		//			}
+			// Bottom Bar
+			bbar: [
+				{
+					xtype: 'button',
+					text: 'button'
+				}
+			]
+
 		});
+
+
+
+
+
+
+
+
+		var topPanel = new Ext.Panel({
+			border: false,
+			height: 49,
+			/**
+			 * Component Id
+			 *
+			 * @type {String}
+			 */
+			id: 'typo3-pagetree-topPanel',
+
+			/**
+			 * Border
+			 *
+			 * @type {Boolean}
+			 */
+			border: false,
+			html: 'top panel under work!'
+		});
+
+		// top panel
+		var topPanelItems = new Ext.Panel({
+			id: 'typo3-pagetree-topPanelItems',
+			border: false,
+			region: 'north',
+			height: 49,
+			items: [
+				topPanel, {
+					border: false,
+					id: 'typo3-pagetree-indicatorBar'
+				}
+			]
+		});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -107,20 +181,45 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 				bodyStyle: 'padding:15px'
 			},
 			items: [{
-				title: 'Concepts',
+//				title: 'Concepts',
+				xtype: 'panel',
 				region:'west',
-				margins: '5 0 0 0',
-				cmargins: '5 5 0 0',
+				margins: '0 0 0 0',
+				padding: '0',
+
+				//				cmargins: '5 5 0 0',
 				width: 200,
-				minSize: 100,
-				maxSize: 250,
-				items: [
-				treePanel
-				]
+				//				minSize: 100,
+				//				maxSize: 250,
+				items: [{
+
+					xtype: 'panel',
+					border: false,
+					layout:'border',
+					id: 'typo3-pagetree',
+					items: [
+						topPanelItems,
+						{
+						xtype: 'panel',
+						id: 'typo3-pagetree-treeContainer',
+						region: 'center',
+						layout: 'fit',
+						items: [{
+								xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
+								ref: '../timeList'
+							}
+						]
+					}]
+				}]
 			},{
-				title: 'Content',
+//				title: 'Content',
 				region:'center',
-				margins: '5 0 0 0'
+				margins: '5 0 0 0',
+				padding: '0',
+				cls: 'x-panel-center',
+				items: [
+					grid
+				]
 			}]
 		};
 

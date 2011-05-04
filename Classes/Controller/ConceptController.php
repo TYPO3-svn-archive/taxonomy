@@ -108,6 +108,8 @@
 		$files[] = 'Application/MenuRegistry.js';
 		$files[] = 'Application/AbstractBootstrap.js';
 
+		$files[] = 'Concept/ConceptTree.js';
+
 //		// Override
 //		$files[] = 'Override/Chart.js';
 //
