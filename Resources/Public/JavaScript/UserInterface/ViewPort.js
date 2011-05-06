@@ -170,7 +170,10 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 	
 		var config = {
 			renderTo: 'typo3-viewPort',
-			height: 700,
+//			height: 100,
+			plugins: ['TYPO3.Taxonomy.FitToParent'],
+
+//			autoHeight: true,
 			// items are set dynamically through method handleNavigationToken() located in every bootstrapper
 			// this method is called whenever event TYPO3.Taxonomy.Application.navigate is fired (at least once when application is loaded)
 
@@ -223,7 +226,41 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 			}]
 		};
 
+
+		this.on(
+			'afterrender',
+			this.onafterrender,
+			this
+		);
+
 		Ext.apply(this, config);
 		TYPO3.Taxonomy.UserInterface.ViewPort.superclass.initComponent.call(this);
+	},
+
+
+	/**
+	 * Resizes the grid to fit the window
+	 *
+	 * @method onafterrender
+	 * @return void
+	 */
+	onafterrender: function() {
+		// 120 is an empiric value... maybe a better way to implement that ;)
+		//this.setHeight(window.innerHeight - 120);
+//		console.log(123123);
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
