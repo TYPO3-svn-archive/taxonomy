@@ -109,17 +109,14 @@
 		$files[] = 'Application/AbstractBootstrap.js';
 
 		$files[] = 'Concept/ConceptTree.js';
+		$files[] = 'Concept/ConceptGrid.js';
 
 //		// Override
 //		$files[] = 'Override/Chart.js';
 //
-//		// Store
-//		$files[] = 'Store/Bootstrap.js';
-//		$files[] = 'Store/StatisticStore.js';
-//		$files[] = 'Store/NewsletterListStore.js';
-//		$files[] = 'Store/OverviewPieChartStore.js';
-//		$files[] = 'Store/ClickedLinkStore.js';
-//		$files[] = 'Store/SentEmailStore.js';
+		// Stores
+//		$files[] = 'Stores/Bootstrap.js';
+		$files[] = 'Stores/ConceptStore.js';
 //
 //		// User interfaces
 		$files[] = 'UserInterface/Bootstrap.js';

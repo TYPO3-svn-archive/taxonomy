@@ -14,113 +14,6 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 	initComponent: function() {
 
 
-
-
-
-
-		// Data grid
-		var store = new Ext.data.Store({
-			data: [
-			[
-			1,
-			"Office Space",
-			"Mike Judge",
-			"1999-02-19",
-			1,
-			"Work Sucks",
-			"19.95",
-			1
-			],[
-			3,
-			"Super Troopers",
-			"Jay Chandrasekhar",
-			"2002-02-15",
-			1,
-			"Altered State Police",
-			"14.95",
-			1
-			]
-			//...more rows of data removed for readability...//
-			],
-			reader: new Ext.data.ArrayReader({
-				id:'id'
-			}, [
-			'id',
-			'title',
-			'director',
-			{
-				name: 'released',
-				type: 'date',
-				dateFormat: 'Y-m-d'
-			},
-			'genre',
-			'tagline',
-			'price',
-			'available'
-			])
-		});
-
-
-
-		var grid = new Ext.grid.GridPanel({
-//			frame:true,
-			//		 title: 'Movie Database',
-			height:200,
-			//		  width:500,
-			store: store,
-			columns: [
-			{
-				header: "Title",
-				dataIndex: 'title'
-			},
-
-			{
-				header: "Director",
-				dataIndex: 'director'
-			},
-
-			{
-				header: "Released",
-				dataIndex: 'released',
-				renderer: Ext.util.Format.dateRenderer('m/d/Y')
-				},
-
-				{
-				header: "Genre",
-				dataIndex: 'genre'
-			},
-
-			{
-				header: "Tagline",
-				dataIndex: 'tagline'
-			}
-			],
-
-			// Top Bar
-//			tbar: [
-//				{
-//					xtype: 'button',
-//					text: 'button'
-//				}
-//			],
-
-			// Bottom Bar
-			bbar: [
-				{
-					xtype: 'button',
-					text: 'button'
-				}
-			]
-
-		});
-
-
-
-
-
-
-
-
 		var topPanel = new Ext.Panel({
 			border: false,
 			height: 49,
@@ -153,7 +46,6 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 				}
 			]
 		});
-
 
 
 
@@ -209,7 +101,7 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 						layout: 'fit',
 						items: [{
 								xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
-								ref: '../timeList'
+								ref: '../conceptTree'
 							}
 						]
 					}]
@@ -221,46 +113,17 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 				padding: '0',
 				cls: 'x-panel-center',
 				items: [
-					grid
+					{
+						xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
+						ref: '../conceptGrid'
+
+					}
 				]
 			}]
 		};
 
-
-		this.on(
-			'afterrender',
-			this.onafterrender,
-			this
-		);
-
 		Ext.apply(this, config);
 		TYPO3.Taxonomy.UserInterface.ViewPort.superclass.initComponent.call(this);
-	},
-
-
-	/**
-	 * Resizes the grid to fit the window
-	 *
-	 * @method onafterrender
-	 * @return void
-	 */
-	onafterrender: function() {
-		// 120 is an empiric value... maybe a better way to implement that ;)
-		//this.setHeight(window.innerHeight - 120);
-//		console.log(123123);
 	}
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
