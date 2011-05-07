@@ -73,11 +73,9 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 				 * CENTER PANEL
 				 */
 				{
-	//				title: 'Content',
 					region:'center',
 					margins: '0 0 0 -5',
 					padding: '0',
-//					cls: 'x-panel-center',
 					items: [{
 						xtype: 'panel',
 						border: false,
@@ -91,11 +89,11 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 							},
 							{
 								xtype: 'panel',
-//								id: 'typo3-pagetree-treeContainer',
 								region: 'center',
-								style: {
-									paddingTop: '10px'
-								},
+								id: 'typo3-inner-docbody',
+//								style: {
+//									paddingTop: '10px'
+//								},
 								layout: 'fit',
 								items: [
 									{
