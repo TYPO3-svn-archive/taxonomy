@@ -47,7 +47,7 @@ class Tx_Taxonomy_ViewHelpers_OpenNewWindowViewHelper extends Tx_Fluid_Core_View
 		$url = t3lib_div::getIndpEnv('TYPO3_REQUEST_SCRIPT');
 		$url .= '?M=user_TaxonomyAdmin'; // improve this ;)
 
-		$onClick = "devlogWin=window.open('" . $url . "','devlog','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');devlogWin.focus();return false;";
+		$onClick = "devlogWin=window.open('" . $url . "','taxonomy','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0');devlogWin.focus();return false;";
 		$content = '<a id="openview" href="#" onclick="' . htmlspecialchars($onClick).'">' .
 					'<img' . t3lib_iconWorks::skinImg($BACK_PATH,'gfx/open_in_new_window.gif', 'width="19" height="14"') . ' title="' . $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.php:labels.openInNewWindow', 1) . '" class="absmiddle" alt="" />' .
 					'</a>';

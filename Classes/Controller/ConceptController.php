@@ -121,9 +121,12 @@
 //		// User interfaces
 		$files[] = 'UserInterface/Bootstrap.js';
 		$files[] = 'UserInterface/ViewPort.js';
-		$files[] = 'UserInterface/FitToParent.js';
-//		$files[] = 'UserInterface/SectionMenu.js';
-//
+		$files[] = 'UserInterface/TopPanel.js';
+		$files[] = 'UserInterface/DocHeader.js';
+
+//		// Plugins
+		$files[] = 'Plugins/FitToParent.js';
+
 //		// Newsletter Planner
 //		$files[] = 'Planner/Bootstrap.js';
 //		$files[] = 'Planner/PlannerForm.js';

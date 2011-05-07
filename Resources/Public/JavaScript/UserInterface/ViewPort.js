@@ -13,26 +13,6 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 
 	initComponent: function() {
 
-
-		var topPanel = new Ext.Panel({
-			border: false,
-			height: 49,
-			/**
-			 * Component Id
-			 *
-			 * @type {String}
-			 */
-			id: 'typo3-pagetree-topPanel',
-
-			/**
-			 * Border
-			 *
-			 * @type {Boolean}
-			 */
-			border: false,
-			html: 'top panel under work!'
-		});
-
 		// top panel
 		var topPanelItems = new Ext.Panel({
 			id: 'typo3-pagetree-topPanelItems',
@@ -40,26 +20,13 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 			region: 'north',
 			height: 49,
 			items: [
-				topPanel, {
-					border: false,
-					id: 'typo3-pagetree-indicatorBar'
+				{
+					xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
+					ref: 'topPanel'
 				}
 			]
 		});
 
-
-
-
-
-
-
-
-
-
-
-
-
-	
 		var config = {
 			renderTo: 'typo3-viewPort',
 //			height: 100,
@@ -75,51 +42,86 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 				split: true,
 				bodyStyle: 'padding:15px'
 			},
-			items: [{
-//				title: 'Concepts',
-				xtype: 'panel',
-				region:'west',
-				margins: '0 0 0 0',
-				padding: '0',
+			items: [
 
-				//				cmargins: '5 5 0 0',
-				width: 200,
-				//				minSize: 100,
-				//				maxSize: 250,
-				items: [{
-
+				/*
+				 * WEST PANEL
+				 */
+				{
+	//				title: 'Concepts',
 					xtype: 'panel',
-					border: false,
-					layout:'border',
-					id: 'typo3-pagetree',
-					items: [
-						topPanelItems,
-						{
+					region:'west',
+					margins: '0',
+					padding: '0',
+					//				cmargins: '5 5 0 0',
+					width: 200,
+					//				minSize: 100,
+					//				maxSize: 250,
+					items: [{
+
 						xtype: 'panel',
-						id: 'typo3-pagetree-treeContainer',
-						region: 'center',
-						layout: 'fit',
-						items: [{
-								xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
-								ref: '../conceptTree'
+						border: false,
+						layout:'border',
+						id: 'typo3-pagetree',
+						items: [
+							topPanelItems,
+							{
+								xtype: 'panel',
+								id: 'typo3-pagetree-treeContainer',
+								region: 'center',
+								layout: 'fit',
+								items: [{
+										xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
+										ref: '../conceptTree'
+									}
+								]
 							}
 						]
 					}]
-				}]
-			},{
-//				title: 'Content',
-				region:'center',
-				margins: '5 0 0 0',
-				padding: '0',
-				cls: 'x-panel-center',
-				items: [
-					{
-						xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
-						ref: '../conceptGrid'
+				},
 
+				/*
+				 * CENTER PANEL
+				 */
+				{
+	//				title: 'Content',
+					region:'center',
+					margins: '0 0 0 -5',
+					padding: '0',
+//					cls: 'x-panel-center',
+					items: [{
+						xtype: 'panel',
+						border: false,
+						layout:'border',
+						cls: 'typo3-fullDoc',
+						items: [
+							{
+								xtype: 'TYPO3.Taxonomy.UserInterface.DocHeader',
+								ref: 'docHeader'
+
+							},
+							{
+								xtype: 'panel',
+//								id: 'typo3-pagetree-treeContainer',
+								region: 'center',
+								style: {
+									paddingTop: '10px'
+								},
+								layout: 'fit',
+								items: [
+									{
+										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
+										ref: '../conceptGrid'
+									}
+								]
+							}
+						]
 					}
-				]
-			}]
+						
+
+					]
+				}
+			]
 		};
 
 		Ext.apply(this, config);

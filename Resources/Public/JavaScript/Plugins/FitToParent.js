@@ -1,7 +1,7 @@
-Ext.ns("TYPO3.Taxonomy.UserInterface");
+Ext.ns("TYPO3.Taxonomy.Plugins");
 
 /**
- * @class TYPO3.Taxonomy.UserInterface.FitToParent
+ * @class TYPO3.Taxonomy.Plugins.FitToParent
  * @extends Object
  * <p>Plugin for {@link Ext.BoxComponent BoxComponent} and descendants that adjusts the size of the component to fit inside a parent element</p>
  * <p>The following example will adjust the size of the panel to fit inside the element with id="some-el":<pre><code>
@@ -16,7 +16,7 @@ var panel = new Ext.Panel({
     renderTo: 'other-el',
     autoHeight: true,
     plugins: [
-        new TYPO3.Taxonomy.UserInterface.FitToParent({
+        new TYPO3.Taxonomy.Plugins.FitToParent({
             parent: 'parent-el',
             fitHeight: false,
             offsets: [10, 0]
@@ -26,7 +26,7 @@ var panel = new Ext.Panel({
  * <p>The element the component is rendered to needs to have <tt>style="overflow:hidden"</tt>, otherwise the component will only grow to fit the parent element, but it will never shrink.</p>
  * <p>Note: This plugin should not be used when the parent element is the document body. In this case you should use a {@link Ext.Viewport Viewport} container.</p>
  */
-TYPO3.Taxonomy.UserInterface.FitToParent = Ext.extend(Object, {
+TYPO3.Taxonomy.Plugins.FitToParent = Ext.extend(Object, {
     /**
      * @cfg {HTMLElement/Ext.Element/String} parent The element to fit the component size to (defaults to the element the component is rendered to).
      */
@@ -76,4 +76,4 @@ TYPO3.Taxonomy.UserInterface.FitToParent = Ext.extend(Object, {
     }
 });
 
-Ext.preg('TYPO3.Taxonomy.FitToParent', TYPO3.Taxonomy.UserInterface.FitToParent);
+Ext.preg('TYPO3.Taxonomy.FitToParent', TYPO3.Taxonomy.Plugins.FitToParent);

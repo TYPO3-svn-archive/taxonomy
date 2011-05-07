@@ -10,8 +10,34 @@ $Id: newsletter.css 37081 2010-08-21 11:26:34Z fabien_u $
 	background-image: url(../Icons/concept.png) !important;
 }
 
-div#typo3-inner-docbody {
-	padding: 0;
+.typo3-fullDoc,
+.typo3-fullDoc .x-panel-bwrap,
+.typo3-fullDoc .x-panel-body {
+	height: 100%;
+}
+
+.typo3-docheader-row2 {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAYAAAAb4BS0AAAAGElEQVR42gENAPL/AMjIyEzIyMizyMjI/zhvCQelaHPPAAAAAElFTkSuQmCC");
+	background-position: right;
+	background-repeat: repeat-y;
+}
+
+.typo3-docheader-row1 {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAABCAYAAAAb4BS0AAAAGElEQVR42gENAPL/AEBAQExAQECzQEBA/xb3BD8CHBN0AAAAAElFTkSuQmCC");
+	background-position: right;
+	background-repeat: repeat-y;
+}
+
+.typo3-docheader-row1 {
+	background-color: #585858;
+	height: 22px;
+}
+
+.typo3-docheader-row2 {
+	background-color: #DADADA;
+	line-height: 27px;
+	height: 21px;
+	padding-top: 6px;
 }
 
 .x-toolbar,
