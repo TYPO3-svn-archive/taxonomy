@@ -20,61 +20,68 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	initComponent: function() {
 
 		var config = {
-			/**
-			 * Component Id
-			 *
-			 * @type {String}
-			 */
-			id: 'typo3-pagetree-topPanel',
-
-			/**
-			 * Border
-			 *
-			 * @type {Boolean}
-			 */
+			id: 'typo3-pagetree-topPanelItems',
 			border: false,
-
-			/**
-			 * Toolbar Object
-			 *
-			 * @type {Ext.Toolbar}
-			 */
-//			tbar: new Ext.Toolbar(),
+			region: 'north',
 			height: 49,
-			items: [
-				{
-					xtype: 'panel',
-					cls: 'typo3-docheader-row1',
-					items: [
-						{
-							xtype: 'panel',
-							cls: 'buttonsleft'
-						},
-						{
-							xtype: 'panel',
-							cls: 'buttonsright',
-							html: '1234'
-						}
-					]
-				},
-				{
-					xtype: 'panel',
-					cls: 'typo3-docheader-row2',
-					style: {
-						paddingTop: '6px'
-					},
-					items: [
-						{
-							xtype: 'panel',
-							cls: 'docheader-row2-left',
-							html: [
-								'asdf'
-							]
-						}
-					]
+			items: [{
+				/**
+				 * Component Id
+				 *
+				 * @type {String}
+				 */
+				id: 'typo3-pagetree-topPanel',
 
+				/**
+				 * Border
+				 *
+				 * @type {Boolean}
+				 */
+				border: false,
+
+				/**
+				 * Toolbar Object
+				 *
+				 * @type {Ext.Toolbar}
+				 */
+	//			tbar: new Ext.Toolbar(),
+				height: 49,
+				items: [
+					{
+						xtype: 'panel',
+						cls: 'typo3-docheader-row1',
+						items: [
+							{
+								xtype: 'panel',
+								cls: 'buttonsleft'
+							},
+							{
+								xtype: 'panel',
+								cls: 'buttonsright',
+								html: '1234'
+							}
+						]
+					},
+					{
+						xtype: 'panel',
+						cls: 'typo3-docheader-row2',
+						style: {
+							paddingTop: '6px'
+						},
+						items: [
+							{
+								xtype: 'panel',
+								cls: 'docheader-row2-left',
+								html: [
+									'asdf'
+								]
+							}
+						]
+
+					}]
 				}
 			]
+
 		};
 
 		Ext.apply(this, config);

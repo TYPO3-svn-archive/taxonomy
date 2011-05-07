@@ -25,17 +25,16 @@ TYPO3.Taxonomy.UserInterface.Bootstrap = Ext.apply(new TYPO3.Taxonomy.Applicatio
 //			}
 //		]);
 		
-		TYPO3.Taxonomy.Application.on('TYPO3.Taxonomy.Application.afterBootstrap', this.initViewPort, this);
-//		TYPO3.Taxonomy.Application.on('TYPO3.Taxonomy.Application.afterBootstrap', this.initSectionMenu, this);
+		TYPO3.Taxonomy.Application.on(
+			'TYPO3.Taxonomy.Application.afterBootstrap',
+			this.initFullDoc,
+			this
+		);
 	},
 	
-	initViewPort: function() {
-		TYPO3.Taxonomy.UserInterface.viewPort = new TYPO3.Taxonomy.UserInterface.ViewPort();
-	},
-//
-//	initSectionMenu: function() {
-//		TYPO3.Taxonomy.UserInterface.sectionMenu = new TYPO3.Taxonomy.UserInterface.SectionMenu();
-//	}
+	initFullDoc: function() {
+		TYPO3.Taxonomy.UserInterface.fullDoc = new TYPO3.Taxonomy.UserInterface.FullDoc();
+	}
 });
 
 TYPO3.Taxonomy.Application.registerBootstrap(TYPO3.Taxonomy.UserInterface.Bootstrap);

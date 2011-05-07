@@ -1,35 +1,20 @@
 Ext.ns("TYPO3.Taxonomy.UserInterface");
 
 /**
- * @class TYPO3.Taxonomy.UserInterface.ViewPort
+ * @class TYPO3.Taxonomy.UserInterface.FullDoc
  * @namespace TYPO3.Taxonomy.UserInterface
  * @extends Ext.Container
  *
  * Class for the main content
  *
- * $Id: ViewPort.js 35001 2010-06-28 13:44:42Z fabien_u $
+ * $Id: FullDoc.js 35001 2010-06-28 13:44:42Z fabien_u $
  */
-TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
+TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 
 	initComponent: function() {
-
-		// top panel
-		var topPanelItems = new Ext.Panel({
-			id: 'typo3-pagetree-topPanelItems',
-			border: false,
-			region: 'north',
-			height: 49,
-			items: [
-				{
-					xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
-					ref: 'topPanel'
-				}
-			]
-		});
-
+		
 		var config = {
-			renderTo: 'typo3-viewPort',
-//			height: 100,
+			renderTo: 'typo3-fullDoc',
 			plugins: ['TYPO3.Taxonomy.FitToParent'],
 
 //			autoHeight: true,
@@ -64,7 +49,11 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 						layout:'border',
 						id: 'typo3-pagetree',
 						items: [
-							topPanelItems,
+
+							{
+								xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
+								ref: 'topPanel'
+							},
 							{
 								xtype: 'panel',
 								id: 'typo3-pagetree-treeContainer',
@@ -125,7 +114,7 @@ TYPO3.Taxonomy.UserInterface.ViewPort = Ext.extend(Ext.Container, {
 		};
 
 		Ext.apply(this, config);
-		TYPO3.Taxonomy.UserInterface.ViewPort.superclass.initComponent.call(this);
+		TYPO3.Taxonomy.UserInterface.FullDoc.superclass.initComponent.call(this);
 	}
 
 });

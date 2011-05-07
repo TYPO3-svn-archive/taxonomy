@@ -120,7 +120,7 @@
 //
 //		// User interfaces
 		$files[] = 'UserInterface/Bootstrap.js';
-		$files[] = 'UserInterface/ViewPort.js';
+		$files[] = 'UserInterface/FullDoc.js';
 		$files[] = 'UserInterface/TopPanel.js';
 		$files[] = 'UserInterface/DocHeader.js';
 
