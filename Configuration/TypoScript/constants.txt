@@ -9,7 +9,7 @@ plugin.tx_taxonomy {
 	}
 	persistence {
 		# cat=plugin.tx_taxonomy//a; type=int+; label=Default storage PID
-		storagePid = 
+		storagePid = 1
 	}
 }
 
@@ -25,6 +25,6 @@ module.tx_taxonomy {
 	}
 	persistence {
 		# cat=plugin.tx_taxonomy//a; type=int+; label=Default storage PID
-		storagePid = 
+		storagePid = 1
 	}
 }
