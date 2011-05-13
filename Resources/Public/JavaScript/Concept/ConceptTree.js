@@ -11,6 +11,65 @@ Ext.ns("TYPO3.Taxonomy.Concept");
  */
 TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 
+	/**
+	 * Tree Editor Instance (Inline Edit)
+	 *
+	 * @type {TYPO3.Components.PageTree.TreeEditor}
+	 */
+	treeEditor: null,
+
+	/**
+	 * Registered clicks for the double click feature
+	 *
+	 * @type {int}
+	 */
+	clicksRegistered: 0,
+
+	/**
+	 * Listeners
+	 *
+	 * Event handlers that handle click events and synchronizes the label edit,
+	 * double click and single click events in a useful way.
+	 */
+	listeners: {
+			// single click handler that only triggers after a delay to let the double click event
+			// a possibility to be executed (needed for label edit)
+		click: {
+			fn: function(node, event) {
+				if (this.clicksRegistered === 2) {
+					this.clicksRegistered = 0;
+					event.stopEvent();
+					return false;
+				}
+
+				this.clicksRegistered = 0;
+//				if (this.commandProvider.singleClick) {
+//					this.commandProvider.singleClick(node, this);
+//				}
+			},
+			delay: 400
+		},
+
+			// prevent the expanding / collapsing on double click
+		beforedblclick: {
+			fn: function() {
+				return false;
+			}
+		},
+
+			// prevents label edit on a selected node
+		beforeclick: {
+			fn: function(node, event) {
+				if (!this.clicksRegistered && this.getSelectionModel().isSelected(node)) {
+					node.fireEvent('click', node, event);
+					++this.clicksRegistered;
+					return false;
+				}
+				++this.clicksRegistered;
+			}
+		}
+	},
+
 	initComponent: function() {
 		
 		var config = {
@@ -27,7 +86,7 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 			singleExpand: true,
 
 			loader: new Ext.tree.TreeLoader({
-				dataUrl:'/typo3conf/ext/taxonomy/tree-data.json'
+				dataUrl: '/typo3conf/ext/taxonomy/tree-data.json'
 			}),
 
 			root: new Ext.tree.AsyncTreeNode(),
@@ -84,6 +143,10 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 			this.onClick,
 			this
 		);
+
+
+		this.treeEditor = new TYPO3.Taxonomy.UserInterface.TreeEditor(this);
+
 
 
 		Ext.apply(this, config);

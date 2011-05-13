@@ -1,34 +1,66 @@
 [{
     text:'Animal',
+    editableText:'Animal',
+    prefix:'',
+    suffix:'',
+	editable: true,
     expanded: true,
     children:[{
         text:'Mammal',
+        editableText:'Mammal',
         id:'mammal',
 		expanded: true,
+		prefix:'',
+		suffix:'',
+		editable: true,
 		children: [{
 			text:'Feline',
+			editableText:'Feline',
 			id:'feline',
 			expanded: true,
+			prefix:'',
+			suffix:'',
+			editable: true,
 			children: [{
 				text:'Tiger',
+				editableText:'Tiger',
+				prefix:'',
+				suffix:'',
+				editable: true,
 				id:'tiger',
 				leaf:true
 			}, {
 				text:'Domestic cat',
+				editableText:'Domestic cat',
+				prefix:'',
+				suffix:'',
+				editable: true,
 				id:'domestic-cat',
 				leaf:true
 			}]
 		}, {
 			text:'Bovine',
+			editableText:'Bovine',
+			prefix:'',
+			suffix:'',
+			editable: true,
 			id:'bovine',
 			leaf:true
 		}]
     },{
         text:'reptile',
+        editableText:'reptile',
+		prefix:'',
+		suffix:'',
+		editable: true,
         id:'reptile',
         leaf:true
     },{
         text:'reptile',
+        editableText:'reptile',
+		prefix:'',
+		suffix:'',
+		editable: true,
         id:'reptile2',
         leaf:true
     }]

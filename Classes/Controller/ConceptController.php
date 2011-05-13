@@ -123,6 +123,7 @@
 		$files[] = 'UserInterface/FullDoc.js';
 		$files[] = 'UserInterface/TopPanel.js';
 		$files[] = 'UserInterface/DocHeader.js';
+		$files[] = 'UserInterface/TreeEditor.js';
 
 //		// Plugins
 		$files[] = 'Plugins/FitToParent.js';
