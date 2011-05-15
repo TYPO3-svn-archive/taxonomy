@@ -54,7 +54,11 @@
 		suffix:'',
 		editable: true,
         id:'reptile',
-        leaf:true
+		
+//		"expanded":true,
+//		"expandable":false,
+//		"draggable":true,
+//		"isTarget":true,
     },{
         text:'reptile',
         editableText:'reptile',
@@ -62,6 +66,7 @@
 		suffix:'',
 		editable: true,
         id:'reptile2',
-        leaf:true
+//        leaf:true
+//			expanded: true
     }]
 }]

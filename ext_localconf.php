@@ -24,4 +24,5 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ExtDirect']['TYPO3.Taxonomy.Remote'] = 'EXT:devlog/class.tx_devlog_remote.php:tx_devlog_remote';
 ?>

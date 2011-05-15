@@ -61,7 +61,7 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								layout: 'fit',
 								items: [{
 										xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
-										ref: '../conceptTree'
+										ref: 'conceptTree'
 									}
 								]
 							}
@@ -98,7 +98,7 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								items: [
 									{
 										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
-										ref: '../conceptGrid'
+										ref: 'conceptGrid'
 									}
 								]
 							}
