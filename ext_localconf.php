@@ -24,5 +24,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ExtDirect']['TYPO3.Taxonomy.Remote'] = 'EXT:devlog/class.tx_devlog_remote.php:tx_devlog_remote';
+#$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ExtDirect']['TYPO3.Taxonomy.ExtDirect'] = 'EXT:taxonomy/Classes/class.tx_devlog_remote.php:tx_devlog_remote';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ExtDirect']['TYPO3.Ajax.ExtDirect.Taxonomy'] = 'EXT:taxonomy/Classes/ExtDirect/Server.php:Tx_Taxonomy_ExtDirect_Server';
 ?>

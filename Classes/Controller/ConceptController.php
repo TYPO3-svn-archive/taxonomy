@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Jochen Rau <jochen.rau@typoplanet.de>, typoplanet
+*  (c) 2011 Fabien Udriot <fabien.udriot@ecodev.ch>
 *  	
 *  All rights reserved
 *
@@ -124,6 +124,7 @@
 		$files[] = 'UserInterface/TopPanel.js';
 		$files[] = 'UserInterface/DocHeader.js';
 		$files[] = 'UserInterface/TreeEditor.js';
+		$files[] = 'UserInterface/TreeNodeUI.js';
 
 //		// Plugins
 		$files[] = 'Plugins/FitToParent.js';
@@ -155,6 +156,14 @@
 			$this->pageRenderer->addJsFile($this->javascriptPath . $file, 'text/javascript', FALSE);
 		}
 
+		// ExtDirect
+		$this->pageRenderer->addExtDirectCode();
+//		$pageRenderer->addExtDirectCode(array(
+//			 'mynamespace.app1',
+//			 'mynamespace.app2',
+//			 'mynamespace.app3'
+//		  ));
+
 		// Add ExtJS API
 		#$this->pageRenderer->addJsFile('ajax.php?ajaxID=ExtDirect::getAPI&namespace=TYPO3.Taxonomy', 'text/javascript', FALSE);
 
@@ -180,11 +189,13 @@ EOF;
 		// *********************************** //
 		// Defines contextual variables
 		$labels = json_encode($this->getLabels());
+		$configuration = json_encode($this->getConfiguration());
 
 		$this->inlineJavascript[] .= <<< EOF
 
 		Ext.ns("TYPO3.Taxonomy");
 		TYPO3.Taxonomy.Language = $labels;
+		TYPO3.Taxonomy.Configuration = $configuration;
 
 EOF;
 		$this->pageRenderer->addJsInlineCode('newsletter', implode("\n", $this->inlineJavascript));
@@ -199,6 +210,19 @@ EOF;
 		$this->pageRenderer->addCssFile($this->stylesheetsPath . 'Taxonomy.css');
 	}
 	
+	/**
+	 * Return configuration
+	 *
+	 * @global Language $LANG
+	 * @global array $LANG_LANG
+	 * @return array
+	 */
+	protected function getConfiguration() {
+		$configuration['disableIconLinkToContextmenu'] = false;
+
+		return $configuration;
+	}
+
 	/**
 	 * Return labels in the form of an array
 	 *

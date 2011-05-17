@@ -104,7 +104,13 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 	 * @return {void}
 	 */
 	initComponent: function() {
-		
+
+		if (!this.uiProvider) {
+			this.uiProvider = TYPO3.Taxonomy.UserInterface.TreeNodeUI;
+		}
+
+		this.treeDataProvider = TYPO3.Ajax.ExtDirect.Taxonomy;
+
 		var config = {
 			id: 'tree-panel',
 			split: true,
@@ -115,19 +121,46 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 
 			// tree-specific configs:
 			rootVisible: false,
-			//			lines: true,
-			//			useArrows: true,
 			singleExpand: true,
 
-			loader: new Ext.tree.TreeLoader({
-				dataUrl: '/typo3conf/ext/taxonomy/tree-data.json'
-			}),
-
 			//root: new Ext.tree.AsyncTreeNode()
-			root: new Ext.tree.AsyncTreeNode(this.rootNodeConfig)
+			root: new Ext.tree.AsyncTreeNode(this.rootNodeConfig),
+			
+			loader: new Ext.tree.TreeLoader({
+				directFn: this.treeDataProvider.getNextTreeLevel,
+				paramOrder: 'nodeId,attributes',
+				nodeParameter: 'nodeId',
+				baseAttrs: {
+					uiProvider: this.uiProvider
+				},
+
+					// an id can never be zero in ExtJS, but this is needed
+					// for the root line feature or it will never be working!
+				createNode: function(attr) {
+					if (attr.id == 0) {
+						attr.id = 'siteRootNode';
+					}
+					return Ext.tree.TreeLoader.prototype.createNode.call(this, attr);
+				},
+
+				listeners: {
+					beforeload: function(treeLoader, node) {
+						treeLoader.baseParams.nodeId = node.id;
+						treeLoader.baseParams.attributes = node.attributes.nodeData;
+					}
+				}
+			})
 		};
 
 
+		// late binding of ExtDirect
+//		TYPO3.Workspaces.Toolbar.selectActionStore.proxy = new Ext.data.DirectProxy({
+//			directFn : TYPO3.Workspaces.ExtDirect.getStageActions
+//		});
+//		TYPO3.Ajax.ExtDirect.Taxonomy.doSomething('asdf', function(response, options) {
+//			console.log(123);
+//			console.log(response);
+//		});
 		//contect menu
 //		this.on('contextmenu', function treeContextHandler(node) {
 //			node.select();
