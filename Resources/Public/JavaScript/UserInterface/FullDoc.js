@@ -51,9 +51,16 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 						items: [
 
 							{
-								xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
-								ref: 'topPanel'
+					//			id: 'typo3-pagetree-topPanelItems',
+								border: false,
+								region: 'north',
+								height: 49,
+								items: [{
+									xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
+									ref: 'topPanel'
+								}]
 							},
+
 							{
 								xtype: 'panel',
 								id: 'typo3-pagetree-treeContainer',
@@ -61,7 +68,7 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								layout: 'fit',
 								items: [{
 										xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
-										ref: 'conceptTree'
+										ref: '../../../tree'
 									}
 								]
 							}

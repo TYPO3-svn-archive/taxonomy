@@ -112,7 +112,8 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 		this.treeDataProvider = TYPO3.Ajax.ExtDirect.Taxonomy;
 
 		var config = {
-			id: 'tree-panel',
+//			id: 'tree-panel',
+			id: 'typo3-pagetree-tree',
 			split: true,
 			height: 300,
 			minSize: 150,

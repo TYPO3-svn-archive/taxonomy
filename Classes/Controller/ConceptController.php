@@ -190,12 +190,14 @@ EOF;
 		// Defines contextual variables
 		$labels = json_encode($this->getLabels());
 		$configuration = json_encode($this->getConfiguration());
+		$sprites = json_encode($this->getSprites());
 
 		$this->inlineJavascript[] .= <<< EOF
 
 		Ext.ns("TYPO3.Taxonomy");
 		TYPO3.Taxonomy.Language = $labels;
 		TYPO3.Taxonomy.Configuration = $configuration;
+		TYPO3.Taxonomy.Sprites = $sprites;
 
 EOF;
 		$this->pageRenderer->addJsInlineCode('newsletter', implode("\n", $this->inlineJavascript));
@@ -213,14 +215,34 @@ EOF;
 	/**
 	 * Return configuration
 	 *
-	 * @global Language $LANG
-	 * @global array $LANG_LANG
 	 * @return array
 	 */
 	protected function getConfiguration() {
-		$configuration['disableIconLinkToContextmenu'] = false;
+		$values = array(
+			'disableIconLinkToContextmenu' => false,
+			//'disableIconLinkToContextmenu' => $GLOBALS['BE_USER']->getTSConfigVal('options.pageTree.disableIconLinkToContextmenu'),
+			'hideFilter' => false,
+//			'hideFilter' => $GLOBALS['BE_USER']->getTSConfigVal('options.pageTree.hideFilter'),
+		);
+		return $values;
+	}
 
-		return $configuration;
+	/**
+	 * Return Sprites
+	 *
+	 * @return array
+	 */
+	protected function getSprites() {
+		$values = array(
+			'Filter' => t3lib_iconWorks::getSpriteIconClasses('actions-system-tree-search-open'),
+			'NewNode' => t3lib_iconWorks::getSpriteIconClasses('actions-page-new'),
+			'Refresh' => t3lib_iconWorks::getSpriteIconClasses('actions-system-refresh'),
+			'InputClear' => t3lib_iconWorks::getSpriteIconClasses('actions-input-clear'),
+			'TrashCan' => t3lib_iconWorks::getSpriteIconClasses('actions-edit-delete'),
+			'TrashCanRestore' => t3lib_iconWorks::getSpriteIconClasses('actions-edit-restore'),
+			'Info' => t3lib_iconWorks::getSpriteIconClasses('actions-document-info'),
+		);
+		return $values;
 	}
 
 	/**

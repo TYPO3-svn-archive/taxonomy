@@ -11,6 +11,63 @@ Ext.ns("TYPO3.Taxonomy.UserInterface");
  * $Id: ViewPort.js 35001 2010-06-28 13:44:42Z fabien_u $
  */
 TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
+	
+	/**
+	 * Currently Clicked Toolbar Button
+	 *
+	 * @type {Ext.Button}
+	 */
+	currentlyClickedButton: null,
+
+	/**
+	 * Currently Shown Panel
+	 *
+	 * @type {Ext.Component}
+	 */
+	currentlyShownPanel: null,
+
+	/**
+	 * Filtering Indicator Item
+	 *
+	 * @type {Ext.Panel}
+	 */
+	filteringIndicator: null,
+
+	/**
+	 * Drag and Drop Group
+	 *
+	 * @cfg {String}
+	 */
+	ddGroup: '',
+
+	/**
+	 * Data Provider
+	 *
+	 * @cfg {Object}
+	 */
+	dataProvider: null,
+
+	/**
+	 * Filtering Tree
+	 *
+	 * @cfg {TYPO3.Taxonomy.UserInterface.TopPanel.FilteringTree}
+	 */
+	filteringTree: null,
+
+	/**
+	 * Page Tree
+	 *
+	 * @cfg {TYPO3.Components.PageTree.Tree}
+	 */
+	tree: null,
+
+	/**
+	 * Application Panel
+	 *
+	 * @cfg {TYPO3.Components.PageTree.App}
+	 */
+	app: null,
+
 
 	/**
 	 * Initializes the component
@@ -20,11 +77,6 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	initComponent: function() {
 
 		var config = {
-			id: 'typo3-pagetree-topPanelItems',
-			border: false,
-			region: 'north',
-			height: 49,
-			items: [{
 				/**
 				 * Component Id
 				 *
@@ -44,67 +96,74 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 				 *
 				 * @type {Ext.Toolbar}
 				 */
-	//			tbar: new Ext.Toolbar(),
-				height: 49,
-				items: [
-					{
-						xtype: 'panel',
-						cls: 'typo3-docheader-row1',
-						items: [
-							{
-								xtype: 'panel',
-								cls: 'buttonsleft'
-							},
-							{
-								xtype: 'panel',
-								cls: 'buttonsright',
-								html: '1234'
-							}
-						]
-					},
-					{
-						xtype: 'panel',
-						cls: 'typo3-docheader-row2',
-						style: {
-							paddingTop: '6px'
-						},
-						items: [
-							{
-								xtype: 'panel',
-								cls: 'docheader-row2-left',
-								html: [
-									'asdf'
-								]
-							}
-						]
+				tbar: new Ext.Toolbar(),
 
-					}]
-				}
-			]
+				height: 49,
+//				items: [
+////					{
+////						xtype: 'panel',
+////						cls: 'typo3-docheader-row1',
+////						items: [
+////							{
+////								xtype: 'panel',
+////								cls: 'buttonsleft'
+////							},
+////							{
+////								xtype: 'panel',
+////								cls: 'buttonsright',
+////								html: '1234'
+////							}
+////						]
+////					},
+//					{
+//						xtype: 'panel',
+//						id: this.id + '-defaultPanel',
+//						cls: 'typo3-docheader-row2',
+//						style: {
+//							paddingTop: '6px'
+//						},
+////						items: [
+////							{
+////								xtype: 'panel',
+////								cls: 'docheader-row2-left',
+////								html: [
+////									'asdf'
+////								]
+////							}
+////						]
+//					}
+//				]
 
 		};
 
-		Ext.apply(this, config);
-		TYPO3.Taxonomy.UserInterface.TopPanel.superclass.initComponent.call(this);
+
 
 //		this.currentlyShownPanel = new Ext.Panel({
 //			id: this.id + '-defaultPanel',
 //			cls: this.id + '-item'
 //		});
-//		this.items = [this.currentlyShownPanel];
-//
-//		TYPO3.Taxonomy.UserInterface.TopPanel.superclass.initComponent.apply(this, arguments);
-//
-//		this.addDragDropNodeInsertionFeature();
-//
-//		if (!TYPO3.Taxonomy.UserInterface.Configuration.hideFilter
-//			|| TYPO3.Taxonomy.UserInterface.Configuration.hideFilter === '0'
-//		) {
-//			this.addFilterFeature();
-//		}
-//
-//		this.getTopToolbar().addItem({xtype: 'tbfill'});
-//		this.addRefreshTreeFeature();
+		this.currentlyShownPanel = new Ext.Panel({
+			id: this.id + '-defaultPanel',
+			cls: 'typo3-docheader-row2'
+		});
+		
+		this.items = [this.currentlyShownPanel];
+		console.log();
+		//this.activeTree = 
+		
+		Ext.apply(this, config);
+		TYPO3.Taxonomy.UserInterface.TopPanel.superclass.initComponent.call(this);
+
+		this.addDragDropNodeInsertionFeature();
+		
+		if (!TYPO3.Taxonomy.Configuration.hideFilter
+			|| TYPO3.Taxonomy.Configuration.hideFilter === '0'
+		) {
+			this.addFilterFeature();
+		}
+
+		this.getTopToolbar().addItem({xtype: 'tbfill'});
+		this.addRefreshTreeFeature();
 	},
 
 	/**
@@ -236,12 +295,12 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			html: '<p>' +
 					'<span id="' + this.app.id + '-indicatorBar-filter-info' + '" ' +
 						'class="' + this.app.id + '-indicatorBar-item-leftIcon ' +
-							TYPO3.Taxonomy.UserInterface.Sprites.Info + '">&nbsp;' +
+							TYPO3.Taxonomy.Sprites.Info + '">&nbsp;' +
 					'</span>' +
 					'<span id="' + this.app.id + '-indicatorBar-filter-clear' + '" ' +
 						'class="' + this.app.id + '-indicatorBar-item-rightIcon ' + '">X' +
 					'</span>' +
-					TYPO3.Taxonomy.UserInterface.LLL.activeFilterMode +
+					TYPO3.Taxonomy.Language.activeFilterMode +
 				'</p>',
 			filteringTree: this.filteringTree,
 
@@ -269,22 +328,22 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 		var topPanelButton = new Ext.Button({
 			id: this.id + '-button-filter',
 			cls: this.id + '-button',
-			iconCls: TYPO3.Taxonomy.UserInterface.Sprites.Filter,
-			tooltip: TYPO3.Taxonomy.UserInterface.LLL.buttonFilter
+			iconCls: TYPO3.Taxonomy.Sprites.Filter,
+			tooltip: TYPO3.Taxonomy.Language.buttonFilter
 		});
 
 		var textField = new Ext.form.TriggerField({
 			id: this.id + '-filter',
 			enableKeyEvents: true,
-			triggerClass: TYPO3.Taxonomy.UserInterface.Sprites.InputClear,
-			value: TYPO3.Taxonomy.UserInterface.LLL.searchTermInfo,
+			triggerClass: TYPO3.Taxonomy.Sprites.InputClear,
+			value: TYPO3.Taxonomy.Language.searchTermInfo,
 
 			listeners: {
 				blur: {
 					scope: this,
 					fn:function(textField) {
 						if (textField.getValue() === '') {
-							textField.setValue(TYPO3.Taxonomy.UserInterface.LLL.searchTermInfo);
+							textField.setValue(TYPO3.Taxonomy.Language.searchTermInfo);
 							textField.addClass(this.id + '-filter-defaultText');
 						}
 					}
@@ -293,7 +352,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 				focus: {
 					scope: this,
 					fn: function(textField) {
-						if (textField.getValue() === TYPO3.Taxonomy.UserInterface.LLL.searchTermInfo) {
+						if (textField.getValue() === TYPO3.Taxonomy.Language.searchTermInfo) {
 							textField.setValue('');
 							textField.removeClass(this.id + '-filter-defaultText');
 						}
@@ -344,7 +403,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			topPanel: this.ownerCt,
 
 			endDrag: function() {
-				this.topPanel.app.activeTree.dontSetOverClass = false;
+				TYPO3.Taxonomy.UserInterface.fullDoc.tree.dontSetOverClass = false;
 			},
 
 			getDragData: function(event) {
@@ -360,7 +419,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			},
 
 			onInitDrag: function() {
-				this.topPanel.app.activeTree.dontSetOverClass = true;
+				TYPO3.Taxonomy.UserInterface.fullDoc.tree.dontSetOverClass = true;
 				var clickedButton = this.dragData.item;
 				var cls = clickedButton.initialConfig.iconCls;
 
@@ -406,19 +465,34 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			}
 		});
 
-		this.dataProvider.getNodeTypes(function(response) {
-			for (var i = 0; i < response.length; ++i) {
-				response[i].template = this.getButtonTemplate();
-				newNodeToolbar.addItem(response[i]);
+		var response = [
+			{
+				"nodeType":"1",
+				"cls":"typo3-pagetree-topPanel-button",
+				"iconCls":"t3-icon t3-icon-apps t3-icon-apps-pagetree t3-icon-pagetree-page-default",
+				"title":"Standard",
+				"tooltip":"Standard"
+//			}, {
+//				"nodeType":"6",
+//				"cls":"typo3-pagetree-topPanel-button",
+//				"iconCls":"t3-icon t3-icon-apps t3-icon-apps-pagetree t3-icon-pagetree-page-backend-users",
+//				"title":"Backend User Section",
+//				"tooltip":"Backend User Section"
 			}
-			newNodeToolbar.doLayout();
-		}, this);
+		]
+//		this.dataProvider.getNodeTypes(function(response) {
+		for (var i = 0; i < response.length; ++i) {
+			response[i].template = this.getButtonTemplate();
+			newNodeToolbar.addItem(response[i]);
+		}
+		newNodeToolbar.doLayout();
+//		}, this);
 
 		var topPanelButton = new Ext.Button({
 			id: this.id + '-button-newNode',
 			cls: this.id + '-button',
-			iconCls: TYPO3.Taxonomy.UserInterface.Sprites.NewNode,
-			tooltip: TYPO3.Taxonomy.UserInterface.LLL.buttonNewNode
+			iconCls: TYPO3.Taxonomy.Sprites.NewNode,
+			tooltip: TYPO3.Taxonomy.Language.buttonNewNode
 		});
 
 		this.addButton(topPanelButton, newNodeToolbar);
@@ -433,14 +507,15 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 		var topPanelButton = new Ext.Button({
 			id: this.id + '-button-refresh',
 			cls: this.id + '-button',
-			iconCls: TYPO3.Taxonomy.UserInterface.Sprites.Refresh,
-			tooltip: TYPO3.Taxonomy.UserInterface.LLL.buttonRefresh,
+			iconCls: TYPO3.Taxonomy.Sprites.Refresh,
+			tooltip: TYPO3.Taxonomy.Language.buttonRefresh,
 
 			listeners: {
 				click: {
 					scope: this,
 					fn: function() {
-						this.app.activeTree.refreshTree();
+						console.log('@todo this.app.activeTree.refreshTree();')
+//						this.app.activeTree.refreshTree();
 					}
 				}
 			}
