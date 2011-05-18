@@ -11,7 +11,28 @@ Ext.ns("TYPO3.Taxonomy.UserInterface");
  * $Id: ViewPort.js 35001 2010-06-28 13:44:42Z fabien_u $
  */
 TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
-	
+
+	/**
+	 * Component Id
+	 *
+	 * @type {String}
+	 */
+	id: 'typo3-pagetree-topPanel',
+
+	/**
+	 * Border
+	 *
+	 * @type {Boolean}
+	 */
+	border: false,
+
+	/**
+	 * Toolbar Object
+	 *
+	 * @type {Ext.Toolbar}
+	 */
+	tbar: new Ext.Toolbar(),
+
 	/**
 	 * Currently Clicked Toolbar Button
 	 *
@@ -77,79 +98,14 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	initComponent: function() {
 
 		var config = {
-				/**
-				 * Component Id
-				 *
-				 * @type {String}
-				 */
-				id: 'typo3-pagetree-topPanel',
 
-				/**
-				 * Border
-				 *
-				 * @type {Boolean}
-				 */
-				border: false,
-
-				/**
-				 * Toolbar Object
-				 *
-				 * @type {Ext.Toolbar}
-				 */
-				tbar: new Ext.Toolbar(),
-
-				height: 49,
-//				items: [
-////					{
-////						xtype: 'panel',
-////						cls: 'typo3-docheader-row1',
-////						items: [
-////							{
-////								xtype: 'panel',
-////								cls: 'buttonsleft'
-////							},
-////							{
-////								xtype: 'panel',
-////								cls: 'buttonsright',
-////								html: '1234'
-////							}
-////						]
-////					},
-//					{
-//						xtype: 'panel',
-//						id: this.id + '-defaultPanel',
-//						cls: 'typo3-docheader-row2',
-//						style: {
-//							paddingTop: '6px'
-//						},
-////						items: [
-////							{
-////								xtype: 'panel',
-////								cls: 'docheader-row2-left',
-////								html: [
-////									'asdf'
-////								]
-////							}
-////						]
-//					}
-//				]
-
+			items: [{
+				xtype: 'panel',
+				id: this.id + '-defaultPanel',
+				cls: 'typo3-docheader-row2',
+				ref: 'defaultPanel'
+			}]
 		};
-
-
-
-//		this.currentlyShownPanel = new Ext.Panel({
-//			id: this.id + '-defaultPanel',
-//			cls: this.id + '-item'
-//		});
-		this.currentlyShownPanel = new Ext.Panel({
-			id: this.id + '-defaultPanel',
-			cls: 'typo3-docheader-row2'
-		});
-		
-		this.items = [this.currentlyShownPanel];
-		console.log();
-		//this.activeTree = 
 		
 		Ext.apply(this, config);
 		TYPO3.Taxonomy.UserInterface.TopPanel.superclass.initComponent.call(this);
@@ -209,6 +165,11 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	 */
 	topbarButtonCallback: function() {
 		var topPanel = this.ownerCt.ownerCt;
+
+		// the first time currentlyShownPanel may not be instantiated
+		if (! topPanel.currentlyShownPanel) {
+			topPanel.currentlyShownPanel = TYPO3.Taxonomy.UserInterface.doc.topPanel.defaultPanel;
+		}
 
 		topPanel.currentlyShownPanel.hide();
 		if (topPanel.currentlyClickedButton) {
@@ -403,7 +364,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			topPanel: this.ownerCt,
 
 			endDrag: function() {
-				TYPO3.Taxonomy.UserInterface.fullDoc.tree.dontSetOverClass = false;
+				TYPO3.Taxonomy.UserInterface.doc.tree.dontSetOverClass = false;
 			},
 
 			getDragData: function(event) {
@@ -419,7 +380,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			},
 
 			onInitDrag: function() {
-				TYPO3.Taxonomy.UserInterface.fullDoc.tree.dontSetOverClass = true;
+				TYPO3.Taxonomy.UserInterface.doc.tree.dontSetOverClass = true;
 				var clickedButton = this.dragData.item;
 				var cls = clickedButton.initialConfig.iconCls;
 

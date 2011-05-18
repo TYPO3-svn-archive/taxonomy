@@ -33,7 +33,7 @@ TYPO3.Taxonomy.UserInterface.Bootstrap = Ext.apply(new TYPO3.Taxonomy.Applicatio
 	},
 	
 	initFullDoc: function() {
-		TYPO3.Taxonomy.UserInterface.fullDoc = new TYPO3.Taxonomy.UserInterface.FullDoc();
+		TYPO3.Taxonomy.UserInterface.doc = new TYPO3.Taxonomy.UserInterface.FullDoc();
 	}
 });
 

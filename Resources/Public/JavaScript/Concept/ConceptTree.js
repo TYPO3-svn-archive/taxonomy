@@ -109,7 +109,7 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 			this.uiProvider = TYPO3.Taxonomy.UserInterface.TreeNodeUI;
 		}
 
-		this.treeDataProvider = TYPO3.Ajax.ExtDirect.Taxonomy;
+		this.treeDataProvider = TYPO3.Taxonomy.ExtDirect;
 
 		var config = {
 //			id: 'tree-panel',
@@ -157,10 +157,6 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 		// late binding of ExtDirect
 //		TYPO3.Workspaces.Toolbar.selectActionStore.proxy = new Ext.data.DirectProxy({
 //			directFn : TYPO3.Workspaces.ExtDirect.getStageActions
-//		});
-//		TYPO3.Ajax.ExtDirect.Taxonomy.doSomething('asdf', function(response, options) {
-//			console.log(123);
-//			console.log(response);
 //		});
 		//contect menu
 //		this.on('contextmenu', function treeContextHandler(node) {

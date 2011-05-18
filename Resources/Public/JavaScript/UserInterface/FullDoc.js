@@ -33,15 +33,11 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 				 * WEST PANEL
 				 */
 				{
-	//				title: 'Concepts',
 					xtype: 'panel',
 					region:'west',
 					margins: '0',
 					padding: '0',
-					//				cmargins: '5 5 0 0',
 					width: 200,
-					//				minSize: 100,
-					//				maxSize: 250,
 					items: [{
 
 						xtype: 'panel',
@@ -49,28 +45,24 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 						layout:'border',
 						id: 'typo3-pagetree',
 						items: [
-
 							{
-					//			id: 'typo3-pagetree-topPanelItems',
+								//id: 'typo3-pagetree-topPanelItems',
 								border: false,
 								region: 'north',
 								height: 49,
 								items: [{
 									xtype: 'TYPO3.Taxonomy.UserInterface.TopPanel',
-									ref: 'topPanel'
+									ref: '../../../topPanel'
 								}]
-							},
-
-							{
+							}, {
 								xtype: 'panel',
 								id: 'typo3-pagetree-treeContainer',
 								region: 'center',
 								layout: 'fit',
 								items: [{
-										xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
-										ref: '../../../tree'
-									}
-								]
+									xtype: 'TYPO3.Taxonomy.Concept.TreePanel',
+									ref: '../../../tree'
+								}]
 							}
 						]
 					}]
@@ -98,9 +90,6 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								xtype: 'panel',
 								region: 'center',
 								id: 'typo3-inner-docbody',
-//								style: {
-//									paddingTop: '10px'
-//								},
 								layout: 'fit',
 								items: [
 									{
