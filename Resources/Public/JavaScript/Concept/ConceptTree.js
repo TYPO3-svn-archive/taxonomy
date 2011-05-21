@@ -108,27 +108,27 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 		if (!this.uiProvider) {
 			this.uiProvider = TYPO3.Taxonomy.UserInterface.TreeNodeUI;
 		}
-
-		this.treeDataProvider = TYPO3.Taxonomy.ExtDirect;
-
+		
 		var config = {
 //			id: 'tree-panel',
 			id: 'typo3-pagetree-tree',
 			split: true,
-			height: 300,
+//			height: 300,
 			minSize: 150,
 			autoScroll: true,
 			enableDrop:true,
 
+			plugins: new TYPO3.Taxonomy.Plugins.StateTreePanel(),
 			// tree-specific configs:
 			rootVisible: false,
 			singleExpand: true,
 
 			//root: new Ext.tree.AsyncTreeNode()
 			root: new Ext.tree.AsyncTreeNode(this.rootNodeConfig),
+
 			
 			loader: new Ext.tree.TreeLoader({
-				directFn: this.treeDataProvider.getNextTreeLevel,
+				directFn: TYPO3.Taxonomy.ExtDirect.getNextTreeLevel,
 				paramOrder: 'nodeId,attributes',
 				nodeParameter: 'nodeId',
 				baseAttrs: {
@@ -282,14 +282,43 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 			event.stopEvent();
 			return false;
 		}
-
+		
 		this.clicksRegistered = 0;
-		if(node.isLeaf()){
-//			console.log(node.text);
-//			console.log(node.id);
-//			console.log(node);
-		// do what you need to with the node.
+
+
+//		console.log(node.text);
+//		console.log(node.id);
+//		console.log(node);
+
+		if (this.stateHash) {
+			this.stateHash.lastSelectedNode = node.id;
 		}
+
+		// Action when user click on a node
+		TYPO3.Taxonomy.ExtDirect.getRecordType('root', 'root', function(response, options) {
+
+			var items = new Array();
+			for (var i = 0; i < response.length; i++) {
+				var recordType = response[i];
+				var grid = new TYPO3.Taxonomy.Concept.GridPanel({
+					recordType: recordType,
+					nodeId: node.id
+				});
+
+				items.push(grid);
+			}
+
+			var layout = new Ext.Container ({
+				id: 'absolute-panel' + node.id,
+				items: items
+			});
+
+			TYPO3.Taxonomy.UserInterface.doc.content.add(layout);
+			TYPO3.Taxonomy.UserInterface.doc.content.layout.setActiveItem('absolute-panel' + node.id);
+
+		});
+
+		
 //		if (this.commandProvider.singleClick) {
 //			this.commandProvider.singleClick(node, this);
 //		}

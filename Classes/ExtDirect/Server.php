@@ -88,7 +88,30 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 		return array('hello1!', $value);
   	}
 
-	
+	/**
+	 * Return the record type for a node
+	 *
+	 * @param int $nodeId
+	 * @param stdClass $nodeData
+	 * @return array $content
+	 */
+	public function getRecordType($nodeId, $nodeData) {
+		$values = array(
+			'tt_news',
+			'tt_content',
+		);
+		return $values;
+	}
+
+	/**
+	 * Render remote extension list
+	 *
+	 * @param object $parameters
+	 * @return string $content
+	 */
+	public function getRemoteExtensionList($parameters) {
+		return array();
+	}
 
 //	/**
 //	 * Get List of workspace changes

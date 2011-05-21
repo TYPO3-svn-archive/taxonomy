@@ -48,6 +48,19 @@ TYPO3.Taxonomy.Application = Ext.apply(new Ext.util.Observable(), {
 
 		Ext.QuickTips.init();
 
+		// State configuration based on database
+		Ext.state.Manager.setProvider(new TYPO3.state.ExtDirectProvider({
+			key: 'moduleData.Taxonomy.States',
+			autoRead: false
+		}));
+
+		if (Ext.isObject(TYPO3.settings.Taxonomy.States)) {
+			Ext.state.Manager.getProvider().initState(TYPO3.settings.Taxonomy.States);
+		}
+
+		// State configuration based on cookie
+		//Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+		
 		this.fireEvent('TYPO3.Taxonomy.Application.afterBootstrap');
 
 		// not used so far

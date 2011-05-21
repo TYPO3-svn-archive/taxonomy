@@ -98,6 +98,11 @@
 		$this->pageRenderer->loadExtJS();
 		$this->pageRenderer->enableExtJsDebug();
 
+		// Manage State Provider
+		$this->template->setExtDirectStateProvider();
+		$states = $GLOBALS['BE_USER']->uc['moduleData']['Taxonomy']['States'];
+		$this->pageRenderer->addInlineSetting('Taxonomy', 'States', $states);
+
 		// *********************************** //
 		// Defines what files should be loaded and loads them
 		$files = array();
@@ -128,6 +133,7 @@
 
 //		// Plugins
 		$files[] = 'Plugins/FitToParent.js';
+		$files[] = 'Plugins/StateTreePanel.js';
 
 //		// Newsletter Planner
 //		$files[] = 'Planner/Bootstrap.js';
@@ -155,15 +161,14 @@
 		foreach ($files as $file) {
 			$this->pageRenderer->addJsFile($this->javascriptPath . $file, 'text/javascript', FALSE);
 		}
+		
+		$this->pageRenderer->addJsFile('../t3lib/js/extjs/ExtDirect.StateProvider.js', 'text/javascript', FALSE);
 
 		// ExtDirect
-		$this->pageRenderer->addExtDirectCode();
-//		$pageRenderer->addExtDirectCode(array(
-//			 'mynamespace.app1',
-//			 'mynamespace.app2',
-//			 'mynamespace.app3'
-//		  ));
-
+//		$this->pageRenderer->addExtDirectCode(array(
+//			'TYPO3.Taxonomy'
+//		));
+		
 		// Add ExtJS API
 		#$this->pageRenderer->addJsFile('ajax.php?ajaxID=ExtDirect::getAPI&namespace=TYPO3.Taxonomy', 'text/javascript', FALSE);
 

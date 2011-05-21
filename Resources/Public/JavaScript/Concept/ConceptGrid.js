@@ -16,7 +16,6 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 
 		var config = {
 //			frame:true,
-			//		 title: 'Movie Database',
 			height:200,
 			//		  width:500,
 			store: TYPO3.Taxonomy.Stores.initConceptStore(),
@@ -60,12 +59,121 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 			bbar: [
 				{
 					xtype: 'button',
-					text: 'button'
+					text: this.recordType + this.nodeId
 				}
 			]
 		};
 
+//		this.repositoryStore = new Ext.data.DirectStore({
+//			storeId: 'repositories',
+//			idProperty: 'uid',
+//			directFn: TYPO3.EM.ExtDirect.getRepositories,
+//			root: 'data',
+//			totalProperty: 'length',
+//			fields : ['title', 'uid', 'updated', 'count', 'selected'],
+//			paramsAsHash: true
+//		});
 
+		this.repositoryListStore = new Ext.data.DirectStore({
+			storeId: 'repositoryliststore',
+			directFn: TYPO3.Taxonomy.ExtDirect.getRemoteExtensionList,
+			idProperty: 'extkey',
+			root: 'data',
+			totalProperty: 'length',
+			fields:[
+				{name:'install'},
+				{name:'title'},
+				{name:'extkey'},
+				{name:'category', type: 'int'},
+				{name:'version'},
+				{name:'alldownloadcounter', type: 'int'},
+				{name:'downloadcounter', type: 'int'},
+				{name:'statevalue'},
+				{name:'state'},
+				{name:'stateCls'},
+				{name:'icon'},
+				{name:'description'},
+				{name:'lastuploaddate', type: 'date', dateFormat: 'timestamp'},
+				{name:'authorname'},
+				{name:'authoremail'},
+				{name:'versions', type: 'int'},
+				{name:'installed', type: 'int'},
+				{name:'versionislower', type: 'bool'},
+				{name:'existingVersion'},
+				{name:'exists', type: 'int'},
+				{name:'relevance', type: 'int'}
+			],
+			paramNames: {
+				start : 'start',
+				limit : 'limit',
+				sort : 'sort',
+				dir : 'dir',
+				query: 'query'
+			},
+			baseParams: {
+				query: '',
+				repository: 1,
+				start: 0,
+				limit: 50
+
+			},
+			remoteSort: true,
+			sortInfo:{
+				field:'title',
+				direction:"ASC"
+			},
+//			listeners: {
+//				beforeload: function(store, records){
+//					var control = Ext.getCmp('rsearchField');
+//					if (control.getValue == '') {
+//						return false;
+//					}
+//					store.setBaseParam('rep', Ext.getCmp('repCombo').getValue());
+//					store.setBaseParam('installedOnly', this.showInstalledOnly);
+//					if (!this.showInstalledOnly) {
+//						this.filterMenuButton.removeClass('bold');
+//					} else {
+//						this.filterMenuButton.addClass('bold');
+//					}
+//
+//				},
+//				load: function(store, records){
+//					var hasFilters = false;
+//					TYPO3.EM.RemoteFilters.filters.each(function (filter) {
+//						if (filter.active) {
+//							hasFilters = true;
+//						}
+//					});
+//					if (hasFilters) {
+//						this.doClearFilters.show();
+//					} else {
+//						this.doClearFilters.hide();
+//					}
+//					if (records.length === 0) {
+//
+//					} else {
+//
+//					}
+//				},
+//				scope: this
+//			},
+//			highlightSearch: function(value) {
+//				var control = Ext.getCmp('rsearchField');
+//				if (control) {
+//					var filtertext = control.getRawValue();
+//					if (filtertext) {
+//						var re = new RegExp(Ext.escapeRe(filtertext), 'gi');
+//						var result = re.exec(value) || [];
+//						if (result.length) {
+//							return value.replace(result[0], '<span class="filteringList-highlight">' + result[0] + '</span>');
+//						}
+//					}
+//				}
+//				return value;
+//			}
+//
+		}
+		);
 
 		Ext.apply(this, config);
 		TYPO3.Taxonomy.Concept.GridPanel.superclass.initComponent.call(this);

@@ -90,22 +90,28 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								xtype: 'panel',
 								region: 'center',
 								id: 'typo3-inner-docbody',
-								layout: 'fit',
+								ref: '../../content',
+								layout: 'card',
 								items: [
-									{
-										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
-										ref: 'conceptGrid'
-									}
+//									{
+//										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
+//										recordType: 'asdf',
+//										ref: 'conceptGrid'
+//									},
+//									{
+//										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
+//										recordType: 'qwer',
+//										ref: 'conceptGrid2'
+//									}
 								]
 							}
 						]
 					}
-						
-
 					]
 				}
 			]
 		};
+
 
 		Ext.apply(this, config);
 		TYPO3.Taxonomy.UserInterface.FullDoc.superclass.initComponent.call(this);

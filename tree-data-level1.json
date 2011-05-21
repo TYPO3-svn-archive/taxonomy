@@ -1,7 +1,7 @@
 [
          {
             "serializeClassName":"t3lib_tree_pagetree_Node",
-            "id":"mp-0-0",
+            "id":"c-0-0",
             "type":"pages_root",
             "editableText":"Concepts",
             "text":"Concepts",
@@ -55,7 +55,7 @@
             "children":[
                {
                   "serializeClassName":"t3lib_tree_pagetree_Node",
-                  "id":"mp-0-1",
+                  "id":"c-0-1",
                   "type":"pages",
                   "editableText":"Reptilia",
                   "text":"Reptilia",
@@ -111,7 +111,7 @@
                },
                {
                   "serializeClassName":"t3lib_tree_pagetree_Node",
-                  "id":"mp-0-8",
+                  "id":"c-0-8",
                   "type":"pages",
                   "editableText":"Mammalia",
                   "text":"Mammalia",
