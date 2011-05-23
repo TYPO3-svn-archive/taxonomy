@@ -130,6 +130,7 @@
 		$files[] = 'UserInterface/DocHeader.js';
 		$files[] = 'UserInterface/TreeEditor.js';
 		$files[] = 'UserInterface/TreeNodeUI.js';
+		$files[] = 'UserInterface/RecordTypeCombo.js';
 
 //		// Plugins
 		$files[] = 'Plugins/FitToParent.js';

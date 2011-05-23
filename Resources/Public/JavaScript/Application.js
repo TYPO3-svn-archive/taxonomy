@@ -39,7 +39,7 @@ TYPO3.Taxonomy.Application = Ext.apply(new Ext.util.Observable(), {
 		//this._initializeExtDirect();
 		this._registerEventDebugging();
 		this._invokeBootstrappers();
-		//this._initStateProvider();
+//		this._initStateProvider();
 		//this._initStateDefaultValue();
 
 		// custom event
@@ -47,19 +47,6 @@ TYPO3.Taxonomy.Application = Ext.apply(new Ext.util.Observable(), {
 		//this._registerEventAfterLoading();
 
 		Ext.QuickTips.init();
-
-		// State configuration based on database
-		Ext.state.Manager.setProvider(new TYPO3.state.ExtDirectProvider({
-			key: 'moduleData.Taxonomy.States',
-			autoRead: false
-		}));
-
-		if (Ext.isObject(TYPO3.settings.Taxonomy.States)) {
-			Ext.state.Manager.getProvider().initState(TYPO3.settings.Taxonomy.States);
-		}
-
-		// State configuration based on cookie
-		//Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 		
 		this.fireEvent('TYPO3.Taxonomy.Application.afterBootstrap');
 
@@ -190,22 +177,20 @@ TYPO3.Taxonomy.Application = Ext.apply(new Ext.util.Observable(), {
 	 * @return void
 	 */
 	_initStateProvider : function() {
-		 // set days to be however long you think cookies should last
-		var days,date;
-		days = 0;		// 0 = expires when browser closes
-		if (days) {
-			date = new Date();
-			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-			//exptime = "; expires=" + 'Sat, 26 Jun 2010 11:12:28 GMT';
+
+
+		// State configuration based on database
+		Ext.state.Manager.setProvider(new TYPO3.state.ExtDirectProvider({
+			key: 'moduleData.Taxonomy.States',
+			autoRead: false
+		}));
+
+		if (Ext.isObject(TYPO3.settings.Taxonomy.States)) {
+			Ext.state.Manager.getProvider().initState(TYPO3.settings.Taxonomy.States);
 		}
 
-		// register provider with state manager.
-		Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
-			path: '/',
-			expires: date,
-			domain: null,
-			secure: false
-		}));
+		// State configuration based on cookie
+		//Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 	},
 
 	/**

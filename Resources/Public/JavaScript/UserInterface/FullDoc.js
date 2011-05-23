@@ -83,8 +83,7 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 						items: [
 							{
 								xtype: 'TYPO3.Taxonomy.UserInterface.DocHeader',
-								ref: 'docHeader'
-
+								ref: '../../docHeader'
 							},
 							{
 								xtype: 'panel',
@@ -92,12 +91,13 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 								id: 'typo3-inner-docbody',
 								ref: '../../content',
 								layout: 'card',
+								activeItem: 0,
 								items: [
-//									{
-//										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
-//										recordType: 'asdf',
-//										ref: 'conceptGrid'
-//									},
+									{
+										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
+										recordType: 'asdf',
+										ref: 'conceptGrid'
+									},
 //									{
 //										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
 //										recordType: 'qwer',

@@ -76,19 +76,6 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 	}
 	
 	/**
-	 * Get List of workspace changes
-	 *
-	 * @param string $parameter
-	 * @return array $data
-	 */
-	public function doSomething($value) {
-		#$GLOBALS['error']->debug('A simple string');
-//		var_dump($value);
-
-		return array('hello1!', $value);
-  	}
-
-	/**
 	 * Return the record type for a node
 	 *
 	 * @param int $nodeId
@@ -101,6 +88,46 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 			'tt_content',
 		);
 		return $values;
+	}
+
+	/**
+	 * Loads repositories
+	 *
+	 * @return array
+	 */
+	public function getRepositories() {
+		//$settings = $this->getSettings();
+		//$repositories = tx_em_Database::getRepositories();
+		$repositories = array(
+			1 => array (
+				'uid' => '1',
+				'title' => 'tt_news',
+			),
+			2 => array (
+				'uid' => '2',
+				'title' => 'tt_content',
+			)
+		);
+		
+		$data = array();
+
+		foreach ($repositories as $uid => $repository) {
+			$data[] = array(
+				'title' => $repository['title'],
+				'uid' => $repository['uid'],
+				'description' => $repository['description'],
+				'wsdl_url' => $repository['wsdl_url'],
+				'mirror_url' => $repository['mirror_url'],
+				'count' => $repository['extCount'],
+				'updated' => $repository['lastUpdated'] ? date('d/m/Y H:i', $repository['lastUpdated']) : 'never',
+				'selected' => $repository['uid'] === $settings['selectedRepository'],
+			);
+		}
+
+		return array(
+			'length' => count($data),
+			'data' => $data,
+		);
 	}
 
 	/**

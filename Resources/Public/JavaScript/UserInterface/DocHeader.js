@@ -18,7 +18,7 @@ TYPO3.Taxonomy.UserInterface.DocHeader = Ext.extend(Ext.Panel, {
 			border: false,
 			region: 'north',
 			height: 49,
-			items: [
+				items: [
 				{
 					xtype: 'panel',
 					id: 'typo3-docheader-row1',
@@ -37,9 +37,6 @@ TYPO3.Taxonomy.UserInterface.DocHeader = Ext.extend(Ext.Panel, {
 				{
 					xtype: 'panel',
 					id: 'typo3-docheader-row2',
-					style: {
-						paddingTop: '6px'
-					},
 					items: [
 						{
 							xtype: 'panel',
@@ -48,14 +45,12 @@ TYPO3.Taxonomy.UserInterface.DocHeader = Ext.extend(Ext.Panel, {
 						{
 							xtype: 'panel',
 							cls: 'docheader-row2-right',
-							html: [
-								'<select style="margin-right: 4px"><option>Select a table</option></select>',
-								'<a id="openview" href="#" onclick="devlogWin=window.open(\'http://semantic.local/typo3/mod.php?M=user_TaxonomyAdmin','devlog','width=790,status=0,menubar=1,resizable=1,location=0,scrollbars=1,toolbar=0\');devlogWin.focus();return false;"><img src="sysext/t3skin/icons/gfx/open_in_new_window.gif" width="16" height="16" title="Open in new window" class="absmiddle" alt=""></a>'
-							]
-
+							items: [{
+								xtype: 'TYPO3.Taxonomy.UserInterface.RecordTypeCombo',
+								ref: '../../recordTypeCombo'
+							}]
 						}
 					]
-
 				}
 			]
 		}
