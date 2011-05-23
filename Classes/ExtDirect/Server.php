@@ -90,6 +90,47 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 		return $values;
 	}
 
+
+	/**
+	 * Loads repositories
+	 *
+	 * @return array
+	 */
+	public function getRecords() {
+		//$settings = $this->getSettings();
+		//$repositories = tx_em_Database::getRepositories();
+		$records = array(
+			1 => array (
+				'uid' => '1',
+				'title' => 'Lorem Ipsum 1',
+			),
+			2 => array (
+				'uid' => '2',
+				'title' => 'Lorem Ipsum 2',
+			)
+		);
+
+		$data = array();
+
+		foreach ($records as $uid => $record) {
+			$data[] = array(
+				'title' => $record['title'],
+				'uid' => $record['uid'],
+//				'description' => $repository['description'],
+//				'wsdl_url' => $repository['wsdl_url'],
+//				'mirror_url' => $repository['mirror_url'],
+//				'count' => $repository['extCount'],
+//				'updated' => $repository['lastUpdated'] ? date('d/m/Y H:i', $repository['lastUpdated']) : 'never',
+//				'selected' => $repository['uid'] === $settings['selectedRepository'],
+			);
+		}
+
+		return array(
+			'length' => count($data),
+			'data' => $data,
+		);
+	}
+
 	/**
 	 * Loads repositories
 	 *
@@ -98,7 +139,7 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 	public function getRepositories() {
 		//$settings = $this->getSettings();
 		//$repositories = tx_em_Database::getRepositories();
-		$repositories = array(
+		$records = array(
 			1 => array (
 				'uid' => '1',
 				'title' => 'tt_news',
@@ -111,16 +152,16 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 		
 		$data = array();
 
-		foreach ($repositories as $uid => $repository) {
+		foreach ($records as $uid => $record) {
 			$data[] = array(
-				'title' => $repository['title'],
-				'uid' => $repository['uid'],
-				'description' => $repository['description'],
-				'wsdl_url' => $repository['wsdl_url'],
-				'mirror_url' => $repository['mirror_url'],
-				'count' => $repository['extCount'],
-				'updated' => $repository['lastUpdated'] ? date('d/m/Y H:i', $repository['lastUpdated']) : 'never',
-				'selected' => $repository['uid'] === $settings['selectedRepository'],
+				'title' => $record['title'],
+				'uid' => $record['uid'],
+//				'description' => $repository['description'],
+//				'wsdl_url' => $repository['wsdl_url'],
+//				'mirror_url' => $repository['mirror_url'],
+//				'count' => $repository['extCount'],
+//				'updated' => $repository['lastUpdated'] ? date('d/m/Y H:i', $repository['lastUpdated']) : 'never',
+//				'selected' => $repository['uid'] === $settings['selectedRepository'],
 			);
 		}
 

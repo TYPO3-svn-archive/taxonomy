@@ -72,7 +72,7 @@ TYPO3.Taxonomy.UserInterface.RecordTypeCombo = Ext.extend(Ext.form.ComboBox, {
 //	},
 
 	/**
-	 * When objec is rendered
+	 * When object is rendered
 	 *
 	 * @access public
 	 * @method onRender

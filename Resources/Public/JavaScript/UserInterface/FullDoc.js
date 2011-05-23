@@ -96,7 +96,7 @@ TYPO3.Taxonomy.UserInterface.FullDoc = Ext.extend(Ext.Container, {
 									{
 										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
 										recordType: 'asdf',
-										ref: 'conceptGrid'
+										ref: 'grid'
 									},
 //									{
 //										xtype: 'TYPO3.Taxonomy.Concept.GridPanel',
