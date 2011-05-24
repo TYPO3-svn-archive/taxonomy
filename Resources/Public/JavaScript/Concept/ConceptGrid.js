@@ -27,13 +27,14 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 				header: 'Tile',
 				sortable: true
 			},
-			{
-				id: 'command',
-				dataIndex: 'uid',
-				header: '',
-				sortable: false,
-				renderer: this._getRendererCommand
-			},
+//			{
+//				id: 'command',
+//				dataIndex: 'uid',
+//				header: '',
+//				sortable: false,
+//				renderer: this._getRendererCommand
+//			},
+			this._getCommand()
 //			{
 //				header: "Released",
 //				dataIndex: 'released',
@@ -94,6 +95,119 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	},
 
 
+	_getCommand: function() {
+
+	return {
+		xtype: 'actioncolumn',
+		header: 'Actions',
+		width: 70,
+		hideable: false,
+//		hidden: (TYPO3.settings.Workspaces.allView === '1'),
+		menuDisabled: true,
+		items: [
+//			{
+//				iconCls:'t3-icon t3-icon-actions t3-icon-actions-version t3-icon-version-workspace-preview'
+//				,tooltip: TYPO3.lang["tooltip.viewElementAction"]
+//				,handler: function(grid, rowIndex, colIndex) {
+//					var record = TYPO3.Workspaces.MainStore.getAt(rowIndex);
+//					TYPO3.Workspaces.Actions.viewSingleRecord(record.json.table, record.json.uid);
+//				},
+//				getClass: function(v, meta, rec) {
+//					if(!rec.json.allowedAction_view) {
+//						return 'icon-hidden';
+//					} else {
+//						return '';
+//					}
+//				}
+//			},
+			{
+				iconCls:'t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open',
+				tooltip: TYPO3.lang["tooltip.editElementAction"],
+				handler: function(grid, rowIndex, colIndex) {
+
+
+					// Basic request in Ext
+					Ext.Ajax.request({
+						//var newUrl = 'alt_doc.php?returnUrl=mod.php&M=web_list&id=51&edit[tt_content][210]=edit';
+						url: 'alt_doc.php',
+						params: {
+							'edit[tt_content][210]': 'edit'
+						},
+						success: function(result, request){
+							console.log( "Data Saved: " + result );
+							var frmConfirm = new TYPO3.Taxonomy.UserInterface.ConfirmWindow({
+								content: result
+//								title: confirmTitle,
+//								records: records,
+//								tables: tables,
+//								confirmText: confirmText,
+//								confirmQuestion: confirmQuestion,
+//								hideRecursive: hideRecursive,
+//								recursiveCheckbox: recursiveCheckbox,
+//								arePagesAffected: arePagesAffected,
+//								command: command
+							}).show();
+						}
+					});
+//					var record = TYPO3.Workspaces.MainStore.getAt(rowIndex);
+//					var newUrl = 'alt_doc.php?returnUrl=' + Ext.urlEncode({}, document.location.href).replace("?","%3F").replace("=", "%3D").replace(":","%3A").replace("/", "%2f") + '&id=' + TYPO3.settings.Workspaces.id + '&edit[' + record.json.table + '][' + record.json.uid + ']=edit';
+					//var newUrl = 'alt_doc.php?returnUrl=mod.php&M=web_list&id=51&edit[tt_content][210]=edit';
+					//window.location.href = newUrl;
+				},
+				getClass: function(v, meta, rec) {
+					if(!rec.json.allowedAction_edit) {
+						return 'icon-hidden';
+					} else {
+						return '';
+					}
+				}
+			},
+//			{
+//				iconCls:'t3-icon t3-icon-actions t3-icon-actions-system t3-icon-system-pagemodule-open',
+//				tooltip: TYPO3.lang["tooltip.openPage"],
+//				handler: function(grid, rowIndex, colIndex) {
+//					var record = TYPO3.Workspaces.MainStore.getAt(rowIndex);
+//					if (record.json.table == 'pages') {
+//						top.loadEditId(record.json.t3ver_oid);
+//					} else {
+//						top.loadEditId(record.json.livepid);
+//					}
+//				},
+//				getClass: function(v, meta, rec) {
+//					if(!rec.json.allowedAction_editVersionedPage || !top.TYPO3.configuration.pageModule) {
+//						return 'icon-hidden';
+//					} else {
+//						return '';
+//					}
+//				}
+//			},
+//			{
+//				iconCls:'t3-icon t3-icon-actions t3-icon-actions-version t3-icon-version-document-remove',
+//				tooltip: TYPO3.lang["tooltip.discardVersion"],
+//				handler: function(grid, rowIndex, colIndex) {
+//					var record = TYPO3.Workspaces.MainStore.getAt(rowIndex);
+//					var configuration = {
+//						title: TYPO3.lang["window.discard.title"],
+//						msg: TYPO3.lang["window.discard.message"],
+//						fn: function(result) {
+//							if (result == 'yes') {
+//								TYPO3.Workspaces.Actions.deleteSingleRecord(record.json.table, record.json.uid);
+//							}
+//						}
+//					};
+//
+//					top.TYPO3.Dialog.QuestionDialog(configuration);
+//				},
+//				getClass: function(v, meta, rec) {
+//					if(!rec.json.allowedAction_delete) {
+//						return 'icon-hidden';
+//					} else {
+//						return '';
+//					}
+//				}
+//			}
+		]};
+	},
 	/**
 	 * Return the store
 	 *
@@ -214,19 +328,19 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 * @param {Object} record
 	 * @return string
 	 */
-	_getRendererCommand: function(value, parent, record) {
-		var iconsPath = '../typo3conf/ext/taxonomy/Temporary/';
-		var output;
-		//			output = '<img class="pointer" src="' + iconsPath + 'zoom.png" alt="view" onclick=""/>&nbsp;';
-		output = '<img class="pointer" src="' + iconsPath + 'pencil.png" alt="edit" onclick="TYPO3.Taxonomy.UserInterface.doc.content.grid.test()"/>&nbsp;';
-		// typo3/alt_doc.php?returnUrl=mod.php&M=web_list&id=51&edit[tt_content][210]=edit
-		output += '<img class="pointer" src="' + iconsPath + 'clip_copy.png" alt="copy" onclick="Contact.window.edit(\'copy\')"/>&nbsp;';
-		output += '<img class="pointer" src="' + iconsPath + 'garbage.png" alt="delete" onclick="Contact.grid.deleteRecords()"/>&nbsp;';
-		return output;
-		var format = TYPO3.Devlog.Preferences.dateFormat + ' ' + TYPO3.Devlog.Preferences.timeFormat;
-		var result = Ext.util.Format.date(record.data['crdate'], format);
-		return '<a href="#" class="devlog-link-crdate" id="devlog-link-generated-' + record.id + '" onclick="return false">' + result + '</a>';
-	},
+//	_getRendererCommand: function(value, parent, record) {
+//		var iconsPath = '../typo3conf/ext/taxonomy/Temporary/';
+//		var output;
+//		//			output = '<img class="pointer" src="' + iconsPath + 'zoom.png" alt="view" onclick=""/>&nbsp;';
+//		output = '<img class="pointer" src="' + iconsPath + 'pencil.png" alt="edit" onclick="TYPO3.Taxonomy.UserInterface.doc.content.grid.test()"/>&nbsp;';
+//		// typo3/alt_doc.php?returnUrl=mod.php&M=web_list&id=51&edit[tt_content][210]=edit
+//		output += '<img class="pointer" src="' + iconsPath + 'clip_copy.png" alt="copy" onclick="Contact.window.edit(\'copy\')"/>&nbsp;';
+//		output += '<img class="pointer" src="' + iconsPath + 'garbage.png" alt="delete" onclick="Contact.grid.deleteRecords()"/>&nbsp;';
+//		return output;
+//		var format = TYPO3.Devlog.Preferences.dateFormat + ' ' + TYPO3.Devlog.Preferences.timeFormat;
+//		var result = Ext.util.Format.date(record.data['crdate'], format);
+//		return '<a href="#" class="devlog-link-crdate" id="devlog-link-generated-' + record.id + '" onclick="return false">' + result + '</a>';
+//	},
 
 	test: function() {
 	if(!win){
@@ -247,15 +361,15 @@ TYPO3.Taxonomy.Concept.GridPanel = Ext.extend(Ext.grid.GridPanel, {
                     border:false
                 }),
 
-                buttons: [{
-                    text:'Submit',
-                    disabled:true
-                },{
-                    text: 'Close',
-                    handler: function(){
-                        win.hide();
-                    }
-                }]
+//                buttons: [{
+//                    text:'Submit',
+//                    disabled:true
+//                },{
+//                    text: 'Close',
+//                    handler: function(){
+//                        win.hide();
+//                    }
+//                }]
             });
         }
         win.show(this);

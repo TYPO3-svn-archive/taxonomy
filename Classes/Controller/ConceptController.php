@@ -131,6 +131,7 @@
 		$files[] = 'UserInterface/TreeEditor.js';
 		$files[] = 'UserInterface/TreeNodeUI.js';
 		$files[] = 'UserInterface/RecordTypeCombo.js';
+		$files[] = 'UserInterface/ConfirmWindow.js';
 
 //		// Plugins
 		$files[] = 'Plugins/FitToParent.js';
