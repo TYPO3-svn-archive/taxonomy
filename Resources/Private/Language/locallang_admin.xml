@@ -6,7 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="mlang_tabs_tab">Taxonomy Administration</label>
+			<label index="mlang_tabs_tab">Taxonomy</label>
 			<label index="mlang_labels_tabdescr">A module to create and edit taxonomies.</label>
 			<label index="mlang_labels_tablabel"></label>
 		</languageKey>
