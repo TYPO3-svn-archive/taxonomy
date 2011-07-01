@@ -23,6 +23,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+// @temp
+require(t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/Classes/Core/Bootstrap.php');
 
 /**
  * Controller for the Concept object
@@ -74,6 +76,66 @@
 	 * @return string The rendered list view
 	 */
 	public function listAction() {
+		// @temp
+//		define('EF_PATH_ROOT', PATH_site);
+//		define('EF_PATH_FRAMEWORK', t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/');
+//		define('EF_PATH_CONFIGURATION', t3lib_extmgm::extPath('taxonomy') . 'Configuration/');
+//		define('EF_PATH_DATA', PATH_site  . 'typo3temp/taxonomy/');
+//		define('EF_PATH_PACKAGES', t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/');
+//		$bootstrap = new \Erfurt\Core\Bootstrap('Development');
+//		$bootstrap->run();
+//		$objectManager = $bootstrap->getObjectManager();
+//		
+//		$store = $objectManager->get('Erfurt\Store\Store');
+//
+//		// IMPORT WINE GRAPH
+////		$wineGraph = 'http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#';
+////		$store->getNewGraph($wineGraph);
+////		$store->importRdf($wineGraph, 'http://www.w3.org/TR/owl-guide/wine.rdf', 'xml');
+////		$query = $objectManager->create('Erfurt\Sparql\SimpleQuery', '
+////		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+////
+////		   SELECT ?s ?p ?o
+////		   FROM <http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#>
+////		   WHERE {
+////			   ?s ?p ?o
+////		   }
+////		');
+////		t3lib_utility_Debug::debug($store->sparqlQuery($query), '$store->sparqlQuery($query)');
+//
+//		
+//		// IMPORT SKOS GRAPH
+////		$graph = 'http://www.w3.org/2004/02/skos/core#';
+////		$graphLocation = 'http://www.w3.org/TR/skos-reference/skos.rdf';
+////		$store->getNewGraph($graph);
+////		$store->importRdf($graph, $graphLocation, 'xml');
+//		
+//		// ADD GRAPH
+//		$graph = $store->getGraph('http://www.w3.org/2004/02/skos/core#');
+//		$graph->addStatement('foo', 'skos:related', array('value' => 'barbarbar', 'type' => 'iri'));
+//		#$graph->deleteStatement('foo', 'skos:related', array('value' => 'barbarbar', 'type' => 'iri'));
+////		t3lib_utility_Debug::debug($graph, '$store');
+//		
+//		$query = $objectManager->create('Erfurt\Sparql\SimpleQuery', '
+//		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+//
+//		   SELECT ?s ?p ?o
+//		   FROM <http://www.w3.org/2004/02/skos/core#>
+//		   WHERE {
+//			   ?s ?p ?o
+//		   }
+//		');
+//
+//		$result = $store->sparqlQuery($query);
+//		t3lib_utility_Debug::debug($result, '$store->sparqlQuery($query)');
+//		exit();
+//		
+//		$availableGraphs = $store->getAvailableGraphs(true);
+//		t3lib_utility_Debug::debug($availableGraphs, '$objectManager');
+//		
+//		$bootstrap->shutdown();
+//		exit();
+
 		$concepts = $this->conceptRepository->findAll();
 		
 		if(count($concepts) < 1){

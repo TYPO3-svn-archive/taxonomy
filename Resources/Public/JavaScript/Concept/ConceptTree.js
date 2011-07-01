@@ -439,7 +439,7 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 		if (dragElement.data && dragElement.data.item && dragElement.data.item.shouldCreateNewNode) {
 			this.t3ContextInfo.serverNodeType = dragElement.data.item.nodeType;
 			dragElement.dropNode = new Ext.tree.TreeNode({
-				text: TYPO3.Components.PageTree.LLL.fakeNodeHint,
+				text: TYPO3.Taxonomy.Language.fakeNodeHint,
 				leaf: true,
 				isInsertedNode: true
 			});

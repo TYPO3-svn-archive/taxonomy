@@ -359,6 +359,10 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	 * @return {void}
 	 */
 	createNewNodeToolbar: function() {
+		
+		// @temp, should be dynamically injected
+		this.ownerCt.ddGroup = 'typo3-pagetree';
+		
 		this.dragZone = new Ext.dd.DragZone(this.getEl(), {
 			ddGroup: this.ownerCt.ddGroup,
 			topPanel: this.ownerCt,
@@ -380,6 +384,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			},
 
 			onInitDrag: function() {
+				console.log(123123);
 				TYPO3.Taxonomy.UserInterface.doc.tree.dontSetOverClass = true;
 				var clickedButton = this.dragData.item;
 				var cls = clickedButton.initialConfig.iconCls;
