@@ -94,7 +94,7 @@ $TCA['tx_taxonomy_domain_model_concept'] = array(
 			'endtime' => 'endtime',
 			),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Concept.php',
-		'iconfile' 			=> t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_taxonomy_domain_model_concept.gif'
+		'iconfile' 			=> t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Media/Icons/concept.png'
 	),
 );
 

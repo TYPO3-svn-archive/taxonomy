@@ -325,6 +325,18 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 	},
 
 	/**
+	 * Triggers the editing of the node if the tree editor is available
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @return {void}
+	 */
+	triggerEdit: function(node) {
+		if (this.treeEditor) {
+			this.treeEditor.triggerEdit(node);
+		}
+	},
+	
+	/**
 	 * Enables the drag and drop feature
 	 *
 	 * return {void}
@@ -512,10 +524,159 @@ TYPO3.Taxonomy.Concept.TreePanel = Ext.extend(Ext.tree.TreePanel, {
 			console.log('@todo insertNodeAfterDestination');
 //			this.commandProvider.insertNodeAfterDestination(movedNode, this);
 		} else {
-			console.log('@todo insertNodeToFirstChildOfDestination');
-//			this.commandProvider.insertNodeToFirstChildOfDestination(movedNode, this);
+			//console.log(movedNode);
+			this.insertNodeToFirstChildOfDestination(movedNode, this);
 		}
 	},
+	
+	
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Inserts a new node as the first child of the given node
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {TYPO3.Components.PageTree.Tree} tree
+	 * @return {void}
+	 */
+	insertNodeToFirstChildOfDestination: function(node, tree) {
+		TYPO3.Taxonomy.ExtDirect.insertNodeToFirstChildOfDestination (
+			tree.t3ContextNode.attributes.nodeData,
+			tree.t3ContextInfo.serverNodeType,
+			function(response) {
+				if (this.evaluateResponse(response)) {
+					this.updateNode(node, true, response, function(node) {
+						tree.triggerEdit(node);
+					});
+				}
+//				this.releaseCutAndCopyModes(tree);
+			},
+			this
+		);
+	},
+	
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Evaluates a response from an ext direct call and shows a flash message
+	 * if it was an exceptional result
+	 *
+	 * @param {Object} response
+	 * @return {Boolean}
+	 */
+	evaluateResponse: function(response) {
+		if (response.success === false) {
+			TYPO3.Flashmessage.display(4, 'Exception', response.message);
+			return false;
+		}
+
+		return true;
+	},
+
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Updates an existing node with the given alternative. The new tree node
+	 * is returned afterwards.
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {Boolean} isExpanded
+	 * @param {Object} updatedNode
+	 * @param {Function} callback
+	 * @return {Ext.tree.TreeNode}
+	 */
+	updateNode: function(node, isExpanded, updatedNode, callback) {
+		if (!updatedNode) {
+			return null;
+		}
+
+		updatedNode.uiProvider = node.ownerTree.uiProvider;
+		var newTreeNode = new Ext.tree.TreeNode(updatedNode);
+		
+		var refreshCallback = this.restoreNodeStateAfterRefresh;
+		
+		if (callback) {
+			refreshCallback = refreshCallback.createSequence(callback);
+		}
+		
+		node.parentNode.replaceChild(newTreeNode, node);
+		newTreeNode.ownerTree.refreshNode(newTreeNode, refreshCallback);
+
+		return newTreeNode;
+	},
+	
+	
+
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Restores the node state
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {Boolean} isExpanded
+	 * @return {void}
+	 */
+	restoreNodeStateAfterRefresh: function(node, isExpanded) {
+		node.parentNode.expand(false, false);
+		if (isExpanded) {
+			node.expand(false, false);
+		} else {
+			node.collapse(false, false);
+		}
+	},
+	
+
+	/**
+	 * Refreshes the tree
+	 *
+	 * @param {Function} callback
+	 * @param {Object} scope
+	 * return {void}
+	 */
+	refreshTree: function(callback, scope) {
+			// remove readable rootline elements while refreshing
+		if (!this.inRefreshingMode) {
+			var rootlineElements = Ext.select('.x-tree-node-readableRootline');
+			if (rootlineElements) {
+				rootlineElements.each(function(element) {
+					element.remove();
+				});
+			}
+		}
+
+		this.refreshNode(this.root, callback, scope);
+	},
+	
+	/**
+	 * Refreshes a given node
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {Function} callback
+	 * @param {Object} scope
+	 * return {void}
+	 */
+	refreshNode: function(node, callback, scope) {
+		if (this.inRefreshingMode) {
+			return;
+		}
+
+		scope = scope || node;
+		this.inRefreshingMode = true;
+		var loadCallback = function(node) {
+			node.ownerTree.inRefreshingMode = false;
+			if (node.ownerTree.restoreState) {
+				node.ownerTree.restoreState(node.getPath());
+			}
+		};
+
+		if (callback) {
+			loadCallback = callback.createSequence(loadCallback);
+		}
+
+		this.getLoader().load(node, loadCallback, scope);
+	},
+
+
 
 	/**
 	 * Copies a node

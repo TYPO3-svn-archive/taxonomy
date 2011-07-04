@@ -360,7 +360,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 	 */
 	createNewNodeToolbar: function() {
 		
-		// @temp, should be dynamically injected
+		// @temp, should be dynamically "injected"
 		this.ownerCt.ddGroup = 'typo3-pagetree';
 		
 		this.dragZone = new Ext.dd.DragZone(this.getEl(), {
@@ -384,11 +384,9 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			},
 
 			onInitDrag: function() {
-				console.log(123123);
 				TYPO3.Taxonomy.UserInterface.doc.tree.dontSetOverClass = true;
 				var clickedButton = this.dragData.item;
 				var cls = clickedButton.initialConfig.iconCls;
-
 				this.proxyElement.shadow = false;
 				this.proxyElement.innerHTML = '<div class="x-dd-drag-ghost-pagetree">' +
 					'<span class="x-dd-drag-ghost-pagetree-icon ' + cls + '">&nbsp;</span>' +
@@ -435,7 +433,7 @@ TYPO3.Taxonomy.UserInterface.TopPanel = Ext.extend(Ext.Panel, {
 			{
 				"nodeType":"1",
 				"cls":"typo3-pagetree-topPanel-button",
-				"iconCls":"t3-icon t3-icon-apps t3-icon-apps-pagetree t3-icon-pagetree-page-default",
+				"iconCls":"t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_taxonomy_domain_model_concept t3-icon-tx_taxonomy_domain_model_concept-default",
 				"title":"Standard",
 				"tooltip":"Standard"
 //			}, {

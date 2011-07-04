@@ -11,6 +11,11 @@ Ext.ns("TYPO3.Taxonomy.UserInterface");
  * $Id: ViewPort.js 35001 2010-06-28 13:44:42Z fabien_u $
  */
 
+// @todo check if the global variable is really needed
+var currentSubScript = "";
+function fsModules(){this.recentIds=new Array();this.navFrameHighlightedID=new Array();this.currentMainLoaded="";this.currentBank="0";}
+var fsMod=new fsModules();
+
 TYPO3.Taxonomy.UserInterface.TreeEditor = Ext.extend(Ext.tree.TreeEditor, {
 	/**
 	 * Don't send any save events if the value wasn't changed
@@ -50,8 +55,7 @@ TYPO3.Taxonomy.UserInterface.TreeEditor = Ext.extend(Ext.tree.TreeEditor, {
 
 		complete: {
 			fn: function(node, newValue, oldValue) {
-				console.log('@todo');
-				//this.editNode.ownerTree.commandProvider.saveTitle(node, this.updatedValue, oldValue, this);
+				this.saveTitle(node, this.updatedValue, oldValue, this);
 			}
 		},
 
@@ -101,6 +105,77 @@ TYPO3.Taxonomy.UserInterface.TreeEditor = Ext.extend(Ext.tree.TreeEditor, {
 			this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, value]);
 			return false;
 		}
+	},
+	
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Reloads the content frame with the current module and node id
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {TYPO3.Components.PageTree.Tree} tree
+	 * @return {void}
+	 */
+	singleClick: function(node, tree) {
+		tree.currentSelectedNode = node;
+
+		var separator = '?';
+		if (currentSubScript.indexOf('?') !== -1) {
+			separator = '&';
+		}
+
+		node.select();
+		if (tree.stateHash) {
+			tree.stateHash.lastSelectedNode = node.id;
+		}
+
+		fsMod.recentIds['web'] = node.attributes.nodeData.id;
+
+		// @todo check what to do with that
+//		TYPO3.Backend.ContentContainer.setUrl(
+//			TS.PATH_typo3 + currentSubScript + separator + 'id=' + node.attributes.nodeData.id
+//		);
+	},
+
+	/**
+	 * @stolen from action.js
+	 * 
+	 * Updates the title of a node
+	 *
+	 * @param {Ext.tree.TreeNode} node
+	 * @param {String} newText
+	 * @param {String} oldText
+	 * @param {TYPO3.Components.PageTree.TreeEditor} treeEditor
+	 * @return {void}
+	 */
+	saveTitle: function(node, newText, oldText, treeEditor) {
+		this.singleClick(node.editNode, node.editNode.ownerTree);
+		if (newText === oldText || newText == '') {
+			treeEditor.updateNodeText(
+				node,
+				node.editNode.attributes.nodeData.editableText,
+				Ext.util.Format.htmlEncode(oldText)
+			);
+			return;
+		}
+		console.log('@todo saveTitle');
+		return;
+		TYPO3.Taxonomy.ExtDirect.updateLabel(
+			node.editNode.attributes.nodeData,
+			newText,
+			function(response) {
+				if (this.evaluateResponse(response)) {
+					treeEditor.updateNodeText(node, response.editableText, response.updatedText);
+				} else {
+					treeEditor.updateNodeText(
+						node,
+						node.editNode.attributes.nodeData.editableText,
+						Ext.util.Format.htmlEncode(oldText)
+					);
+				}
+			},
+			this
+		);
 	}
 });
 

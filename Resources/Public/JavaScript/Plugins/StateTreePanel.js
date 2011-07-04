@@ -95,7 +95,7 @@ Ext.override(TYPO3.Taxonomy.Plugins.StateTreePanel, {
 					}
 				}
 					// get last selected node
-					console.log(this.stateHash['lastSelectedNode']);
+//					console.log(this.stateHash['lastSelectedNode']);
 				if (this.stateHash['lastSelectedNode']) {
 					var node = this.getNodeById(this.stateHash['lastSelectedNode']);
 					if (node) {
