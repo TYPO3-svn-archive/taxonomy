@@ -25,11 +25,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-// @temp
-if (! class_exists('Erfurt\Core\Bootstrap')) {
-	require(t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/Classes/Core/Bootstrap.php');
-}
-
 /**
  *
  * @version $Id$
@@ -194,24 +189,6 @@ class Tx_Taxonomy_ExtDirect_Server extends Tx_Taxonomy_ExtDirect_AbstractHandler
 		/* ********************************** */
 		/* Add relation with the parent object */
 		if ((int) $parentNodeData->id > 0) {
-			define('EF_PATH_ROOT', PATH_site);
-			define('EF_PATH_FRAMEWORK', t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/');
-			define('EF_PATH_CONFIGURATION', t3lib_extmgm::extPath('taxonomy') . 'Configuration/');
-			define('EF_PATH_DATA', PATH_site  . 'typo3temp/taxonomy/');
-			define('EF_PATH_PACKAGES', t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/');
-			$bootstrap = new \Erfurt\Core\Bootstrap('Development');
-			$bootstrap->run();
-			$objectManager = $bootstrap->getObjectManager();
-			
-			$parentNode = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_taxonomy_domain_model_concept', 'uid = ' . (int) $parentNodeData->id);
-			
-			$currentNode = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_taxonomy_domain_model_concept', 'uid = ' . (int) $concept->getUid());
-			
-			$store = $objectManager->get('Erfurt\Store\Store');
-			$graph = $store->getGraph('http://www.w3.org/2004/02/skos/core#');
-			$graph->addStatement('urn:uuid:' . $currentNode[0]['uuid'], 'skos:narrower', array('value' => 'urn:uuid:' . $parentNode[0]['uuid'], 'type' => 'iri'));
-			
-			$bootstrap->shutdown();
 		}
 
 

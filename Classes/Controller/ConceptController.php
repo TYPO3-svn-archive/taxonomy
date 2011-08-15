@@ -24,7 +24,7 @@
 ***************************************************************/
 
 // @temp
-require(t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/Classes/Core/Bootstrap.php');
+//require(t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/Classes/Core/Bootstrap.php');
 
 /**
  * Controller for the Concept object
@@ -117,12 +117,14 @@ require(t3lib_extmgm::extPath('taxonomy') . 'Resources/PHP/Libraries/Erfurt/Clas
 ////		t3lib_utility_Debug::debug($graph, '$store');
 //		
 //		$query = $objectManager->create('Erfurt\Sparql\SimpleQuery', '
-//		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+//		   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+//		   PREFIX skos: <http://www.w3.org/2004/02/skos/core#> .
 //
 //		   SELECT ?s ?p ?o
 //		   FROM <http://www.w3.org/2004/02/skos/core#>
 //		   WHERE {
-//			   ?s ?p ?o
+//			   ?s <http://www.w3.org/2004/02/skos/core#narrower> ?o .
+//			   ?s ?p ?o .
 //		   }
 //		');
 //
