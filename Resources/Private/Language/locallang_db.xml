@@ -13,6 +13,7 @@
 			<label index="tx_taxonomy_domain_model_concept.alt_labels">Alt Labels</label>
 			<label index="tx_taxonomy_domain_model_concept.hidden_labels">Hidden Labels</label>
 			<label index="tx_taxonomy_domain_model_concept.notes">Notes</label>
+			<label index="tx_taxonomy_domain_model_concept.parent">Concept Parent</label>
 			<label index="tx_taxonomy_domain_model_lexicallabel">Lexical Label</label>
 			<label index="tx_taxonomy_domain_model_lexicallabel.tx_taxonomy_value">Value</label>
 			<label index="tx_taxonomy_domain_model_lexicallabel.tx_extbase_type">Label Type</label>

@@ -34,8 +34,8 @@ CREATE TABLE tx_taxonomy_domain_model_conceptscheme (
 CREATE TABLE tx_taxonomy_domain_model_concept (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-	
-	
+	parent int(11) DEFAULT '0' NOT NULL,
+
 	pref_label int(11) unsigned DEFAULT '0',
 	alt_labels int(11) unsigned DEFAULT '0' NOT NULL,
 	hidden_labels int(11) unsigned DEFAULT '0' NOT NULL,

@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_taxonomy_domain_model_concept'] = array(
 	'ctrl' => $TCA['tx_taxonomy_domain_model_concept']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList'	=> 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, pref_label, alt_labels, hidden_labels, notes',
+		'showRecordFieldList'	=> 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, pref_label, alt_labels, hidden_labels, notes, parent',
 	),
 	'types' => array(
-		'1' => array('showitem'	=> 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, pref_label;;1, notes,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem'	=> 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, pref_label;;1, notes, parent,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem'	=> 'alt_labels, hidden_labels'),
@@ -125,20 +125,61 @@ $TCA['tx_taxonomy_domain_model_concept'] = array(
 				),
 			),
 		),
-		'hidden_labels' => array(
-			'exclude'	=> 0,
-			'label'		=> 'LLL:EXT:taxonomy/Resources/Private/Language/locallang_db.xml:tx_taxonomy_domain_model_concept.hidden_labels',
-			'config'	=> array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_taxonomy_domain_model_lexicallabel',
-				'foreign_field' => 'concept',
-				'maxitems'      => 9999,
-				'appearance' => array(
-					'collapse' => 0,
-					'newRecordLinkPosition' => 'bottom',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
+//		'hidden_labels' => array(
+//			'exclude'	=> 0,
+//			'label'		=> 'LLL:EXT:taxonomy/Resources/Private/Language/locallang_db.xml:tx_taxonomy_domain_model_concept.hidden_labels',
+//			'config'	=> array(
+//				'type' => 'inline',
+//				'foreign_table' => 'tx_taxonomy_domain_model_lexicallabel',
+//				'foreign_field' => 'concept',
+//				'maxitems'      => 9999,
+//				'appearance' => array(
+//					'collapse' => 0,
+//					'newRecordLinkPosition' => 'bottom',
+//					'showSynchronizationLink' => 1,
+//					'showPossibleLocalizationRecords' => 1,
+//					'showAllLocalizationLink' => 1
+//				),
+//			),
+//		),
+		
+		'parent' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:taxonomy/Resources/Private/Language/locallang_db.xml:tx_taxonomy_domain_model_concept.parent',
+			'config' => array(
+				'minitems' => 0,
+				'maxitems' => 1,
+				
+				
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'tx_taxonomy_domain_model_concept',
+				
+				'wizards' => array(
+					'_PADDING' => 1,
+					'_VERTICAL' => 0,
+					'edit' => array(
+						'type' => 'popup',
+						'title' => 'Edit',
+						'script' => 'wizard_edit.php',
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+						),
+					'add' => Array(
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => array(
+							'table'=> 'tx_taxonomy_domain_model_concept',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+							),
+						'script' => 'wizard_add.php',
+					),
+					'suggest' => array(    
+						'type' => 'suggest',
+					),
 				),
 			),
 		),
