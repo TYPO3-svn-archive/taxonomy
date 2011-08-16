@@ -24,5 +24,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ExtDirect']['TYPO3.Taxonomy.ExtDirect'] = 'EXT:taxonomy/Classes/ExtDirect/Server.php:Tx_Taxonomy_ExtDirect_Server';
+t3lib_extMgm::registerExtDirectComponent(
+    'TYPO3.Taxonomy.ExtDirect',
+    'EXT:taxonomy/Classes/ExtDirect/Server.php:Tx_Taxonomy_ExtDirect_Server'
+);
 ?>
